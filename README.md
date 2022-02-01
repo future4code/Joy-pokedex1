@@ -1,9 +1,9 @@
 # POKEDEX
 
 Nome dos integrantes: 
-- Pessoa 1
-- Pessoa 2
-- Pessoa 3
+- Guilherme de Oliveira Barros
+- Matheus Lima Ribeiro
+- Junio Batista Silva
 
 Link do Surge: www.link.com.br
 
