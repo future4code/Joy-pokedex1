@@ -24,7 +24,7 @@ const Header = () => {
       direction={"row"}
       justify={"space-between"}
       align={"center"}
-      bg={"#54A6F3"}
+      bg={"background.blue"}
       borderBottom={"solid 2px #dedede"}
     >
       <Image
@@ -55,7 +55,7 @@ const Header = () => {
           <UnorderedList styleType={"none"}>
             <Flex>
               <ListItem
-                bg={"#54A6F3"}
+                bg={"background.blue"}
                 _hover={{ bg: "#E3350D" }}
                 color={"white"}
                 p="2em"
@@ -73,7 +73,7 @@ const Header = () => {
               </ListItem>
               <ListItem
                 p="2em"
-                bg={"#54A6F3"}
+                bg={"background.blue"}
                 _hover={{ bg: "#DAA520" }}
                 color={"white"}
                 cursor={"pointer"}
