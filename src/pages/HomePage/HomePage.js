@@ -1,10 +1,12 @@
+import { Grid } from "@chakra-ui/react";
 import React from "react";
+import PokemonCard from "../../component/PokemonCard";
 
 function HomePage() {
   return (
-    <div>
-      <h1>HomePage</h1>
-    </div>
+    <Grid p={'5em'}>
+      <PokemonCard/>
+    </Grid>
   );
 }
 
