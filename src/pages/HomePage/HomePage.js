@@ -1,7 +1,7 @@
 import { Box, Grid } from "@chakra-ui/react";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import PokemonCard from "../../components/PokemonCard";
+import { httpClient, url } from "../../constants";
 
 function HomePage(props) {
 
@@ -9,20 +9,20 @@ function HomePage(props) {
 
   const [pokemons, setPokemons] = useState([]);
 
+
+
   useEffect(() => {
-    axios.get("https://pokeapi.co/api/v2/pokemon").then((res) => {
-      setPokemons(res.data.results);
+    httpClient.get(`${url}`).then(({data}) => {
+      setPokemons(data.results);
     });
   }, []);
 
-  console.log(pokemons[0].name)
-  console.log(props.searchPokemon)
 
   return (
     <Box display={"flex"} justifyContent={"center"}>
-    <Grid p={"2em"} templateColumns='repeat(4, 1fr)' gap={4} >
+    <Grid p={"2em"} templateColumns='repeat(4, 1fr)' gap={10} >
       {pokemons?.filter(pokemon => {
-        return  pokemon.name.includes(props.searchPokemon)
+        return  pokemon.name.toLowerCase().includes(props.searchPokemon.toLowerCase())
       }).map((pokemon) => {
         return <PokemonCard key={pokemon.name} pokemons={pokemon} />;
       })}
