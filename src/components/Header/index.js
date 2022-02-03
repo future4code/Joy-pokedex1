@@ -23,8 +23,6 @@ const Header = (props) => {
     props.setSearchPokemon(target.value)
   }
 
-  console.log(props.searchPokemon)
-
   return (
     <Flex
       direction={"row"}
