@@ -16,8 +16,14 @@ import { goToHomePage, goToPokedexPage } from "../../routes/coordinator";
 import { useNavigate } from "react-router-dom";
 import { SearchIcon } from "@chakra-ui/icons";
 
-const Header = () => {
+const Header = (props) => {
   const navigate = useNavigate();
+
+  const handlePokemon = ({target}) => {
+    props.setSearchPokemon(target.value)
+  }
+
+  console.log(props.searchPokemon)
 
   return (
     <Flex
@@ -42,6 +48,8 @@ const Header = () => {
           children={<SearchIcon color="white" />}
         />
         <Input
+          value={props.searchPokemon}
+          onChange={handlePokemon}
           type={"text"}
           variant="flushed"
           placeholder="Procure um Pokémon..."
