@@ -1,26 +1,28 @@
-import { Box, Button, Center, Flex, Image, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { httpClient } from "../../constants";
-import "../../index.css";
-import { goToPokemonDetailsPage } from "../../routes/coordinator";
-const PokemonCard = ({ pokemons }) => {
-  const [pokemon, setPokemon] = useState({});
-  const navigate = useNavigate();
+import { Box, Button, Center, Flex, Image, Text } from "@chakra-ui/react"
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { httpClient } from "../../constants"
+import "../../index.css"
+import { goToPokemonDetailsPage } from "../../routes/coordinator"
+const PokemonCard = ({ pokemons, handleClick, textButton }) => {
+  const [pokemon, setPokemon] = useState({})
+
+  const navigate = useNavigate()
+
   useEffect(() => {
     httpClient.get(`/${pokemons.name}`).then((res) => {
-      const { id, types, sprites } = res.data;
+      const { id, types, sprites } = res.data
       setPokemon({
         id,
         image: sprites.other["official-artwork"].front_default,
         type: types.map((type) => {
           return {
             name: type["type"].name,
-          };
+          }
         }),
-      });
-    });
-  }, [pokemons.name]);
+      })
+    })
+  }, [pokemons.name])
 
   return (
     <Box
@@ -32,57 +34,59 @@ const PokemonCard = ({ pokemons }) => {
       fontFamily={"Flexo-Demi"}
       _hover={{ transform: `translate(0px, -5px)` }}
       cursor={"pointer"}
-      onClick={()=>goToPokemonDetailsPage(navigate,pokemon.id)}
     >
-      <Image src={pokemon.image} />
+      <Image
+        src={pokemon.image}
+        onClick={() => goToPokemonDetailsPage(navigate, pokemon.id)}
+      />
       <Text color={"text.gray"}>Nº{pokemon.id}</Text>
       <Text fontSize="2xl">{pokemons.name.toUpperCase()}</Text>
       <Flex>
-        {pokemon.type?.length >= 2
-          ? pokemon.type.map((type) => {
-              return (
-                <Box
-                  key={type.name}
-                  bg={`type.${type.name}`}
-                  m={"0.5em"}
-                  borderRadius={"8"}
-                  w={"10em"}
-                  h={"1.5em"}
-                >
-                  <Text color={"white"} textAlign={"center"}>
-                    {type.name}
-                  </Text>
-                </Box>
-              );
-            })
-          : pokemon.type?.map((type) => {
-              return (
-                <Box
-                  key={type.name}
-                  bg={`type.${type.name}`}
-                  m={"0.5em auto"}
-                  borderRadius={"8"}
-                  w={"10em"}
-                  h={"1.5em"}
-                >
-                  <Text color={"white"} textAlign={"center"}>
-                    {type.name}
-                  </Text>
-                </Box>
-              );
-            })}
+        {pokemon.type?.length >= 2 ? (
+          pokemon.type.map((type) => {
+            return (
+              <Box
+                key={type.name}
+                bg={`type.${type.name}`}
+                m={"0.5em"}
+                borderRadius={"8"}
+                w={"10em"}
+                h={"1.5em"}
+              >
+                <Text color={"white"} textAlign={"center"}>
+                  {type.name}
+                </Text>
+              </Box>
+            )
+          })
+        ) : (
+          <Box
+            key={pokemon?.type?.[0].name}
+            bg={`type.${pokemon?.type?.[0].name}`}
+            m={"0.5em auto"}
+            borderRadius={"8"}
+            w={"10em"}
+            h={"1.5em"}
+          >
+            <Text color={"white"} textAlign={"center"}>
+              {pokemon?.type?.[0].name}
+            </Text>
+          </Box>
+        )}
       </Flex>
       <Center>
         <Button
           bg={"background.blue"}
           color={"white"}
-          p={1}
+          p={2}
+          mt={2}
           _hover={{ bg: "blue.500" }}
+          onClick={handleClick}
         >
-          Adicionar à Pokédex
+          {textButton}
         </Button>
       </Center>
     </Box>
-  );
-};
-export default PokemonCard;
+  )
+}
+export default PokemonCard
