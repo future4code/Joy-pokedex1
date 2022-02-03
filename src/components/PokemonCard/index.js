@@ -2,9 +2,9 @@ import { Box, Button, Center, Flex, Image, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { httpClient } from "../../constants";
 import "../../index.css";
-const PokemonCard = ({ pokemons }) => {
+const PokemonCard = ({ pokemons, handleClick, textButton }) => {
   const [pokemon, setPokemon] = useState({});
-
+  
   useEffect(() => {
     httpClient.get(`/${pokemons.name}`).then((res) => {
       const { id, types, sprites } = res.data;
@@ -52,31 +52,32 @@ const PokemonCard = ({ pokemons }) => {
                 </Box>
               );
             })
-          : pokemon.type?.map((type) => {
-              return (
-                <Box
-                  key={type.name}
-                  bg={`type.${type.name}`}
-                  m={"0.5em auto"}
-                  borderRadius={"8"}
-                  w={"10em"}
-                  h={"1.5em"}
-                >
-                  <Text color={"white"} textAlign={"center"}>
-                    {type.name}
-                  </Text>
-                </Box>
-              );
-            })}
+          : (
+            <Box
+              key={pokemon?.type?.[0].name}
+              bg={`type.${pokemon?.type?.[0].name}`}
+              m={"0.5em auto"}
+              borderRadius={"8"}
+              w={"10em"}
+              h={"1.5em"}
+            >
+              <Text color={"white"} textAlign={"center"}>
+                {pokemon?.type?.[0].name}
+              </Text>
+            </Box>
+          )
+          }
       </Flex>
       <Center>
         <Button
           bg={"background.blue"}
           color={"white"}
-          p={1}
+          p={2}
+          mt={2}
           _hover={{ bg: "blue.500" }}
+          onClick={handleClick}
         >
-          Adicionar à Pokédex
+          {textButton}
         </Button>
       </Center>
     </Box>
