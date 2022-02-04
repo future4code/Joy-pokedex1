@@ -19,7 +19,7 @@ import { useContext } from "react"
 import { GlobalContext } from "../../GlobalContext/GlobalContext"
 
 const Header = () => {
-  const { searchPokemon, setSearchPokemon } = useContext(GlobalContext)
+  const { searchPokemon, setSearchPokemon} = useContext(GlobalContext)
 
   const navigate = useNavigate()
 
@@ -47,7 +47,7 @@ const Header = () => {
         }}
       />
       <InputGroup>
-        <InputRightElement
+        <InputRightElement 
           pointerEvents="none"
           children={<SearchIcon color="white" />}
         />
