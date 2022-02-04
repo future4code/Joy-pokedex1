@@ -12,6 +12,7 @@ const PokemonCard = ({ pokemons, handleClick, textButton }) => {
   useEffect(() => {
     httpClient.get(`/${pokemons.name}`).then((res) => {
       const { id, types, sprites } = res.data
+      
       setPokemon({
         id,
         image: sprites.other["official-artwork"].front_default,
