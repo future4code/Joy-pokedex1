@@ -1,9 +1,9 @@
 import { Box, Button, Grid } from "@chakra-ui/react"
 import axios from "axios"
-import React, { useContext } from "react"
+import React, { useEffect, useState } from "react";
 import PokemonCard from "../../components/PokemonCard"
 import { GlobalContext } from "../../GlobalContext/GlobalContext"
-
+import { SelectContainer } from './styled'
 function HomePage() {
   //já está sendo recebida as props de pesquisa do header.
 
@@ -16,7 +16,10 @@ function HomePage() {
     setLoadMore,
     loadMore,
   } = useContext(GlobalContext)
-
+const [sortParameter, setsortParameter] = useState ("default")
+const handleSortParameter = ({target}) => {
+    setsortParameter(target.value)
+}
   const addToPokedex = (pokemon) => {
     setPokedex([...pokedex, pokemon])
   }
@@ -53,12 +56,31 @@ function HomePage() {
       flexFlow={"column"}
       alignItems={"center"}
     >
+         <SelectContainer display={"flex"}>
+        <Select 
+        value={sortParameter}
+        onChange={handleSortParameter}
+        fontFamily={"Flexo-Demi"}
+        >
+          <option value={"default"} disabled >Ordenar por</option>
+          <option value={"a-z"}>A-Z</option>
+          <option value={"tipo"}>Tipo</option>
+        </Select>
+      </SelectContainer>
       <Grid p={"2em"} templateColumns="repeat(4, 1fr)" gap={10}>
         {notInPokedex
           ?.filter((pokemon) => {
             return pokemon.name
               .toLowerCase()
               .includes(searchPokemon.toLowerCase())
+          }).filter(pokemon => {
+            return pokemon.name.includes(searchPokemon)
+          })
+          .sort((currentPokemon, nextPokemon)=>{
+            if (sortParameter === "a-z"){
+              return currentPokemon.name.localeCompare(nextPokemon.name)
+            }
+            // if (sortParameter === ""){}
           })
           .map((pokemon) => {
             return (
