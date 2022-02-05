@@ -1,30 +1,62 @@
-import { Box, Grid, Select } from "@chakra-ui/react";
-import axios from "axios";
+import { Box, Button, Grid } from "@chakra-ui/react"
+import axios from "axios"
 import React, { useEffect, useState } from "react";
-import PokemonCard from "../../components/PokemonCard";
+import PokemonCard from "../../components/PokemonCard"
+import { GlobalContext } from "../../GlobalContext/GlobalContext"
 import { SelectContainer } from './styled'
+function HomePage() {
+  //já está sendo recebida as props de pesquisa do header.
 
-
-function HomePage(props) {
-
-  const [pokemons, setPokemons] = useState([]);
-  const [sortParameter, setsortParameter] = useState ("default")
-
-  const handleSortParameter = ({target}) => {
+  const {
+    pokemons,
+    setPokemons,
+    searchPokemon,
+    pokedex,
+    setPokedex,
+    setLoadMore,
+    loadMore,
+  } = useContext(GlobalContext)
+const [sortParameter, setsortParameter] = useState ("default")
+const handleSortParameter = ({target}) => {
     setsortParameter(target.value)
-    console.log(target.value)
+}
+  const addToPokedex = (pokemon) => {
+    setPokedex([...pokedex, pokemon])
   }
 
-  useEffect(() => {
-    axios.get("https://pokeapi.co/api/v2/pokemon").then((res) => {
-      setPokemons(res.data.results);
-    });
-  }, []);
+  const LoadMorePokemons = (loadMore) => {
+    axios
+      .get(`${loadMore}`)
+      .then((res) => {
+        setPokemons([...pokemons, ...res.data.results])
+        setLoadMore(res.data.next)
+        console.log(loadMore)
+        console.log(pokemons)
+      })
+      .catch((err) => {
+        alert(err.message)
+      })
+  }
 
-console.log(pokemons)
+  const notInPokedex = pokemons?.filter((pokemon) => {
+    const inPokedex = pokedex.find((pokedex) => {
+      return pokemon.name === pokedex.name
+    })
+    if (inPokedex) {
+      return false
+    } else {
+      return true
+    }
+  })
+
   return (
-    <div>
-      <SelectContainer display={"flex"}>
+    <Box
+      display={"flex"}
+      justifyContent={"center"}
+      flexFlow={"column"}
+      alignItems={"center"}
+    >
+         <SelectContainer display={"flex"}>
         <Select 
         value={sortParameter}
         onChange={handleSortParameter}
@@ -35,11 +67,14 @@ console.log(pokemons)
           <option value={"tipo"}>Tipo</option>
         </Select>
       </SelectContainer>
-      <Box display={"flex"} justifyContent={"center"} >
-        <Grid p={"2em"} templateColumns='repeat(4, 1fr)' gap={4} >
-
-          {pokemons?.filter(pokemon => {
-            return pokemon.name.includes(props.searchPokemon)
+      <Grid p={"2em"} templateColumns="repeat(4, 1fr)" gap={10}>
+        {notInPokedex
+          ?.filter((pokemon) => {
+            return pokemon.name
+              .toLowerCase()
+              .includes(searchPokemon.toLowerCase())
+          }).filter(pokemon => {
+            return pokemon.name.includes(searchPokemon)
           })
           .sort((currentPokemon, nextPokemon)=>{
             if (sortParameter === "a-z"){
@@ -48,13 +83,23 @@ console.log(pokemons)
             // if (sortParameter === ""){}
           })
           .map((pokemon) => {
-            return <PokemonCard key={pokemon.name} pokemons={pokemon} />;
-          })
-          
-          }
-        </Grid>
-      </Box></div>
-  );
+            return (
+              <PokemonCard
+                key={pokemon.name}
+                pokemons={pokemon}
+                handleClick={() => addToPokedex(pokemon)}
+                textButton={"Adicionar à Pokédex"}
+              />
+            )
+          })}
+      </Grid>
+      <Box>
+        <Button onClick={() => LoadMorePokemons(loadMore)}>
+          Carregar Mais
+        </Button>
+      </Box>
+    </Box>
+  )
 }
 
-export default HomePage;
+export default HomePage

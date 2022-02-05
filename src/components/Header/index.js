@@ -8,22 +8,24 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-} from "@chakra-ui/react";
-import Marca from "../../assets/pokedex.png";
-import Pokebola from "../../assets/icons8-pokebola-100-white.png";
-import Pokemon from "../../assets/pikachu-white.png";
-import { goToHomePage, goToPokedexPage } from "../../routes/coordinator";
-import { useNavigate } from "react-router-dom";
-import { SearchIcon } from "@chakra-ui/icons";
+} from "@chakra-ui/react"
+import Marca from "../../assets/pokedex.png"
+import Pokebola from "../../assets/icons8-pokebola-100-white.png"
+import Pokemon from "../../assets/pikachu-white.png"
+import { goToHomePage, goToPokedexPage } from "../../routes/coordinator"
+import { useNavigate } from "react-router-dom"
+import { SearchIcon } from "@chakra-ui/icons"
+import { useContext } from "react"
+import { GlobalContext } from "../../GlobalContext/GlobalContext"
 
-const Header = (props) => {
-  const navigate = useNavigate();
+const Header = () => {
+  const { searchPokemon, setSearchPokemon} = useContext(GlobalContext)
 
-  const handlePokemon = ({target}) => {
-    props.setSearchPokemon(target.value)
+  const navigate = useNavigate()
+
+  const handlePokemon = ({ target }) => {
+    setSearchPokemon(target.value)
   }
-
-  console.log(props.searchPokemon)
 
   return (
     <Flex
@@ -35,20 +37,22 @@ const Header = (props) => {
     >
       <Image
         src={Marca}
-        w={"9em"}
+        w={"10em"}
         h={"5.5em"}
-        p={"1em"}
+        p={"0.5em"}
         m={3}
         cursor={"pointer"}
-        onClick={()=>{goToHomePage(navigate)}}
+        onClick={() => {
+          goToHomePage(navigate)
+        }}
       />
       <InputGroup>
-        <InputRightElement
+        <InputRightElement 
           pointerEvents="none"
           children={<SearchIcon color="white" />}
         />
         <Input
-          value={props.searchPokemon}
+          value={searchPokemon}
           onChange={handlePokemon}
           type={"text"}
           variant="flushed"
@@ -68,7 +72,7 @@ const Header = (props) => {
                 color={"white"}
                 p="2em"
                 cursor={"pointer"}
-                onClick={()=>goToPokedexPage(navigate)}
+                onClick={() => goToPokedexPage(navigate)}
               >
                 <Image
                   src={Pokebola}
@@ -85,7 +89,9 @@ const Header = (props) => {
                 _hover={{ bg: "#DAA520" }}
                 color={"white"}
                 cursor={"pointer"}
-                onClick={()=>{goToHomePage(navigate)}}
+                onClick={() => {
+                  goToHomePage(navigate)
+                }}
               >
                 <Image src={Pokemon} w={"2em"} h={"2em"} ml={"1.5em"} />
                 <Text> Pokémons</Text>
@@ -95,6 +101,6 @@ const Header = (props) => {
         </nav>
       </Menu>
     </Flex>
-  );
-};
-export default Header;
+  )
+}
+export default Header
