@@ -1,6 +1,6 @@
-import { Box, Button, Grid } from "@chakra-ui/react"
+import { Box, Button, Grid, Select } from "@chakra-ui/react"
 import axios from "axios"
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import PokemonCard from "../../components/PokemonCard"
 import { GlobalContext } from "../../GlobalContext/GlobalContext"
 import { SelectContainer } from './styled'
