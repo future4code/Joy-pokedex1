@@ -10,7 +10,7 @@ import {
   InputRightElement,
 } from "@chakra-ui/react"
 import Marca from "../../assets/pokedex.png"
-import Pokebola from "../../assets/icons8-pokebola-100-white.png"
+import Pokebola from "../../assets/pokeball-white2.png"
 import Pokemon from "../../assets/pikachu-white.png"
 import { goToHomePage, goToPokedexPage } from "../../routes/coordinator"
 import { useNavigate } from "react-router-dom"
