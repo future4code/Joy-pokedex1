@@ -1,25 +1,20 @@
-
 import { Box, Button, Grid, Select } from "@chakra-ui/react"
 import axios from "axios"
-import React, { useEffect, useState, useContext } from "react";
-
+import React, { useContext,useEffect, useState } from "react";
 import PokemonCard from "../../components/PokemonCard"
 import { GlobalContext } from "../../GlobalContext/GlobalContext"
 import { SelectContainer } from './styled'
 function HomePage() {
   //já está sendo recebida as props de pesquisa do header.
 
-
   const {
     pokemons,
-       searchPokemon,
     setPokemons,
     searchPokemon,
     pokedex,
     setPokedex,
     setLoadMore,
     loadMore,
-      sortParameter,setSortParameter,pokemonType,filterTypeParameter,setFilterTypeParameter
   } = useContext(GlobalContext)
 const [sortParameter, setsortParameter] = useState ("default")
 const handleSortParameter = ({target}) => {
@@ -29,16 +24,6 @@ const handleSortParameter = ({target}) => {
     setPokedex([...pokedex, pokemon])
   }
 
-
-
-    const updateSortParameter=({target})=>{
-    setSortParameter(target.value)
-  }
-
-  const updateFilterTypeParameter=({target})=>{
-    setFilterTypeParameter(target.value)
-    console.log(target.value);
-  }
   const LoadMorePokemons = (loadMore) => {
     axios
       .get(`${loadMore}`)
@@ -54,7 +39,6 @@ const handleSortParameter = ({target}) => {
   }
 
   const notInPokedex = pokemons?.filter((pokemon) => {
-
     const inPokedex = pokedex.find((pokedex) => {
       return pokemon.name === pokedex.name
     })
@@ -63,31 +47,15 @@ const handleSortParameter = ({target}) => {
     } else {
       return true
     }
-  }
-  )
-console.log(notInPokedex);
+  })
 
   return (
-
     <Box
       display={"flex"}
       justifyContent={"center"}
       flexFlow={"column"}
       alignItems={"center"}
     >
-         {/* <Select name="sort" value={sortParameter} onChange={updateSortParameter}>
-        <option value={'a-z'}>A-Z</option>
-        <option value={'z-a'}>Z-A</option>
-      </Select>
-      <Select name='filterType' onChange={updateFilterTypeParameter} value={filterTypeParameter}>
-       <option value={'grass'}>Grass</option>
-       <option value={'poison'}>Poison</option>
-       <option value={'fire'}>Fire</option>
-       <option value={'water'}>Water</option>
-       <option value={'flying'}>Flying</option>
-       <option value={'bug'}>Bug</option>
-       <option value={'normal'}>Normal</option>
-      </Select>*/}
          <SelectContainer display={"flex"}>
         <Select 
         value={sortParameter}
@@ -99,7 +67,6 @@ console.log(notInPokedex);
           <option value={"tipo"}>Tipo</option>
         </Select>
       </SelectContainer>
-
       <Grid p={"2em"} templateColumns="repeat(4, 1fr)" gap={10}>
         {notInPokedex
           ?.filter((pokemon) => {

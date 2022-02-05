@@ -2,6 +2,8 @@ import { Box, Center, Flex, Image, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { httpClient } from "../../constants";
+import whosthatpok from '../../assets/whosthat.png'
+import {DetailImgContainer} from './styled'
 
 function PokemonDetailsPage() {
   const [pokemonDetails, setPokemonDetails] = useState({});
@@ -45,23 +47,36 @@ function PokemonDetailsPage() {
   }, [params.id]);
   console.log(pokemonDetails && pokemonDetails);
   return (
+    <div>
+      <DetailImgContainer>
+        <Image src={whosthatpok} h={"15vh"} w={"90vw"} />
+        </DetailImgContainer>
+
     <Flex justify={"center"} p={8} m={8} gap={40} fontFamily={"Flexo-Demi"}>
+      
       <Box>
-        <Image w={"10em"} h={"10em"} src={pokemonDetails.image} />
-        <Image w={"10em"} h={"10em"} src={pokemonDetails.image2} />
+      <Flex direction="column"  justify={"center"}>
+      
+
         {pokemonDetails &&
           pokemonDetails.forms &&
           pokemonDetails.forms.map((data) => {
             return (
-              <Text fontSize="3xl" m={3} p={1}>
+              <Text fontSize="5xl" m={3} p={1}>
                 {data.pokemonName.toUpperCase()}
               </Text>
             );
           })}
-        <Box>
+          <Flex direction="row">
+        <Image w={"10em"} h={"10em"} src={pokemonDetails.image} />
+        <Image w={"10em"} h={"10em"} src={pokemonDetails.image2} />
+        </Flex>
+          </Flex>
+        <Box><Flex>
           {pokemonDetails &&
             pokemonDetails.type &&
             pokemonDetails.type.map((type) => {
+              
               return (
                 <Center
                   m={"1em"}
@@ -76,6 +91,7 @@ function PokemonDetailsPage() {
                 </Center>
               );
             })}
+            </Flex>
         </Box>
       </Box>
 
@@ -139,6 +155,7 @@ function PokemonDetailsPage() {
           })}
       </Box>
     </Flex>
+    </div>
   );
 }
 
