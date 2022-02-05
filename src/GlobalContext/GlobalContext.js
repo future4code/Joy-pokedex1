@@ -1,6 +1,6 @@
 import { Text } from "@chakra-ui/react"
 import React, { createContext, useEffect, useState } from "react"
-import { httpClient, url } from "../constants"
+import { httpClient, url} from "../constants"
 
 export const GlobalContext = createContext()
 
@@ -8,11 +8,16 @@ export const GlobalStorage = ({ children }) => {
   const [pokemons, setPokemons] = useState([])
   const [searchPokemon, setSearchPokemon] = useState("")
   const [pokedex, setPokedex] = useState([])
-  const [sortParameter,setSortParameter]=useState('a-z')
+
+         const [sortParameter,setSortParameter]=useState('a-z')
   const [pokemonType,setPokemonType]=useState({})
   const [filterTypeParameter,setFilterTypeParameter]=useState('')
+ 
+  const [loadMore, setLoadMore] = useState(null)
+
   useEffect(() => {
-  httpClient.get(`${url}`).then(({ data }) => {
+    httpClient.get(`${url}`).then(({ data }) => {
+      setLoadMore(data.next)
 
       setPokemons(data.results)
       getPokemonTypes()
@@ -20,6 +25,7 @@ export const GlobalStorage = ({ children }) => {
    
     
   }, [])
+  
 
   const getPokemonTypes=()=>{
      pokemons?.map((pokemon)=>{
@@ -49,11 +55,15 @@ console.log(pokemonType);
         setSearchPokemon,
         pokedex,
         setPokedex,
-        sortParameter,
+
+     sortParameter,
         setSortParameter,
         pokemonType,
         filterTypeParameter,
         setFilterTypeParameter
+        loadMore,
+        setLoadMore,
+
       }}
     >
       {children}
