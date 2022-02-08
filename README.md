@@ -44,9 +44,20 @@ $ git clone https://github.com/future4code/Joy-pokedex1.git
 ```bash
 # Instale as dependencias.
 $ npm install
+```
+```bash
 $ npm install styled-components
+```
+```bash
 $ npm install axios
+```
+```bash
 $ npm install react-router-dom@6
+```
+```bash
 $ npm install @chakra-ui/react @emotion/react@^11 @emotion/styled@^11 framer-motion@^5
+```
+```bash
+# Por ultimo
 $ npm start
 ```
