@@ -41,7 +41,7 @@ const PokemonCard = ({ pokemons, handleClick, textButton }) => {
         onClick={() => goToPokemonDetailsPage(navigate, pokemon.id)}
       />
       <Text color={"text.gray"}>Nº{pokemon.id}</Text>
-      <Text fontSize="2xl">{pokemons.name}</Text>
+      <Text fontSize="2xl" textTransform={"capitalize"}>{pokemons.name}</Text>
       <Flex>
         {pokemon.type?.length >= 2 ? (
           pokemon.type.map((type) => {

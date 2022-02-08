@@ -1,12 +1,11 @@
 import { Box, Button, Grid, Select } from "@chakra-ui/react"
 import axios from "axios"
-import React, { useContext,useEffect, useState } from "react";
+import React, { useContext, useState } from "react"
 import PokemonCard from "../../components/PokemonCard"
 import { GlobalContext } from "../../GlobalContext/GlobalContext"
-import { SelectContainer } from './styled'
-function HomePage() {
-  //já está sendo recebida as props de pesquisa do header.
+import { SelectContainer } from "./styled"
 
+function HomePage() {
   const {
     pokemons,
     setPokemons,
@@ -16,10 +15,13 @@ function HomePage() {
     setLoadMore,
     loadMore,
   } = useContext(GlobalContext)
-const [sortParameter, setsortParameter] = useState ("default")
-const handleSortParameter = ({target}) => {
+  
+  const [sortParameter, setsortParameter] = useState("default")
+  
+  const handleSortParameter = ({ target }) => {
     setsortParameter(target.value)
-}
+  }
+  
   const addToPokedex = (pokemon) => {
     setPokedex([...pokedex, pokemon])
   }
@@ -56,13 +58,15 @@ const handleSortParameter = ({target}) => {
       flexFlow={"column"}
       alignItems={"center"}
     >
-         <SelectContainer display={"flex"}>
-        <Select 
-        value={sortParameter}
-        onChange={handleSortParameter}
-        fontFamily={"Flexo-Demi"}
+      <SelectContainer display={"flex"}>
+        <Select
+          value={sortParameter}
+          onChange={handleSortParameter}
+          fontFamily={"Flexo-Demi"}
         >
-          <option value={"default"} disabled >Ordenar por</option>
+          <option value={"default"} disabled>
+            Ordenar por
+          </option>
           <option value={"a-z"}>A-Z</option>
           <option value={"tipo"}>Tipo</option>
         </Select>
@@ -73,11 +77,12 @@ const handleSortParameter = ({target}) => {
             return pokemon.name
               .toLowerCase()
               .includes(searchPokemon.toLowerCase())
-          }).filter(pokemon => {
+          })
+          .filter((pokemon) => {
             return pokemon.name.includes(searchPokemon)
           })
-          .sort((currentPokemon, nextPokemon)=>{
-            if (sortParameter === "a-z"){
+          .sort((currentPokemon, nextPokemon) => {
+            if (sortParameter === "a-z") {
               return currentPokemon.name.localeCompare(nextPokemon.name)
             }
             // if (sortParameter === ""){}
