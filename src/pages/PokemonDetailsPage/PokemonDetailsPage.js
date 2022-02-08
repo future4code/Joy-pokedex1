@@ -54,7 +54,7 @@ function PokemonDetailsPage() {
       </DetailImgContainer>
 
       <Flex justify={"space-around"} p={"2em"} fontFamily={"Flexo-Demi"} alignItems={"center"}>
-        <Box w={"20em"}>
+        <Box w={"20em"} p={"1em"} borderRadius={8}>
           <Flex direction="column" justify={"center"}>
             {pokemonDetails?.forms?.map((data) => {
               return (
