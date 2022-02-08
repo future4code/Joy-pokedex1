@@ -48,4 +48,5 @@ $ npm install styled-components
 $ npm install axios
 $ npm install react-router-dom@6
 $ npm install @chakra-ui/react @emotion/react@^11 @emotion/styled@^11 framer-motion@^5
+$ npm start
 ```
