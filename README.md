@@ -4,12 +4,12 @@
 **Projeto React inspirado na Pokédex do anime Pokémon.
 Nele você pode criar sua própria pokédex com os seus pokémons preferidos.**
 
-### 🤓 Desenvolvido por: 
+### 🤓📚 Desenvolvido por: 
 - Guilherme de Oliveira Barros
 - Matheus Lima Ribeiro
 - Junio Batista Silva
 
-### 💻 Projeto React, usando as seguintes tecnologias:
+### ⚙️ Projeto React, usando as seguintes tecnologias:
 
 - HTML
 - JavaScript
@@ -18,7 +18,7 @@ Nele você pode criar sua própria pokédex com os seus pokémons preferidos.**
 - React Router DOM
 - Integração com API rest via axios.
 
-### 📚 Navegação:
+### 💻 Navegação:
 Na **página inicial**, você pode escolher pokemons pesquisando por nome na area superior do site ou partindo das opções 
 que são apresentadas na tela...  na parte inferior, clicando em "carregar mais" são adicionados mais pokémons para que você possa escolher.
 E ainda nos cards que são exibidos, dando um clique na imagem do pokemon você consegue ver o perfil completo 
