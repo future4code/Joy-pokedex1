@@ -1,18 +1,16 @@
-import { Text } from "@chakra-ui/react"
 import React, { createContext, useEffect, useState } from "react"
-import { httpClient, url} from "../constants"
+import { httpClient, url } from "../constants"
 
 export const GlobalContext = createContext()
 
 export const GlobalStorage = ({ children }) => {
+  
   const [pokemons, setPokemons] = useState([])
   const [searchPokemon, setSearchPokemon] = useState("")
   const [pokedex, setPokedex] = useState([])
-
-         const [sortParameter,setSortParameter]=useState('a-z')
-  const [pokemonType,setPokemonType]=useState({})
-  const [filterTypeParameter,setFilterTypeParameter]=useState('')
- 
+  const [sortParameter, setSortParameter] = useState("a-z")
+  const [pokemonType, setPokemonType] = useState({})
+  const [filterTypeParameter, setFilterTypeParameter] = useState("")
   const [loadMore, setLoadMore] = useState(null)
 
   useEffect(() => {
@@ -22,17 +20,13 @@ export const GlobalStorage = ({ children }) => {
       setPokemons(data.results)
       getPokemonTypes()
     })
-   
-    
   }, [])
-  
 
-  const getPokemonTypes=()=>{
-     pokemons?.map((pokemon)=>{
-
+  const getPokemonTypes = () => {
+    pokemons?.map((pokemon) => {
       httpClient.get(`/${pokemon.name}`).then((res) => {
-        const {  types}=res.data
-      
+        const { types } = res.data
+
         setPokemonType({
           type: types.map((type) => {
             return {
@@ -41,10 +35,10 @@ export const GlobalStorage = ({ children }) => {
           })
         })
       })
-     })
+    })
   }
 
-console.log(pokemonType);
+  console.log(pokemonType)
 
   return (
     <GlobalContext.Provider
@@ -55,15 +49,13 @@ console.log(pokemonType);
         setSearchPokemon,
         pokedex,
         setPokedex,
-
-     sortParameter,
+        sortParameter,
         setSortParameter,
         pokemonType,
         filterTypeParameter,
         setFilterTypeParameter,
         loadMore,
         setLoadMore,
-
       }}
     >
       {children}

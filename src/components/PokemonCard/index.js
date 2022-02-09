@@ -30,7 +30,7 @@ const PokemonCard = ({ pokemons, handleClick, textButton }) => {
       boxShadow="rgb(0 0 0 / 30%) 0px 4px 8px 0px"
       rounded={"md"}
       p={"1em"}
-      w={"16em"}
+      w={["16em"]}
       h={"auto"}
       fontFamily={"Flexo-Demi"}
       _hover={{ transform: `translate(0px, -5px)` }}
@@ -41,7 +41,7 @@ const PokemonCard = ({ pokemons, handleClick, textButton }) => {
         onClick={() => goToPokemonDetailsPage(navigate, pokemon.id)}
       />
       <Text color={"text.gray"}>Nº{pokemon.id}</Text>
-      <Text fontSize="2xl">{pokemons.name}</Text>
+      <Text fontSize="2xl" textTransform={"capitalize"}>{pokemons.name}</Text>
       <Flex>
         {pokemon.type?.length >= 2 ? (
           pokemon.type.map((type) => {
@@ -51,7 +51,7 @@ const PokemonCard = ({ pokemons, handleClick, textButton }) => {
                 bg={`type.${type.name}`}
                 m={"0.5em"}
                 borderRadius={"8"}
-                w={"10em"}
+                w={["8em", "10em", "10em", "10em"]}
                 h={"1.5em"}
               >
                 <Text color={"white"} textAlign={"center"}>
@@ -65,7 +65,7 @@ const PokemonCard = ({ pokemons, handleClick, textButton }) => {
             bg={`type.${pokemon?.type?.[0].name}`}
             m={"0.5em auto"}
             borderRadius={"8"}
-            w={"10em"}
+            w={["8em", "10em", "10em", "10em"]}
             h={"1.5em"}
           >
             <Text color={"white"} textAlign={"center"}>
