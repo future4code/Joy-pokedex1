@@ -6,6 +6,7 @@ import { GlobalContext } from "../../GlobalContext/GlobalContext"
 import { SelectContainer } from "./styled"
 
 function HomePage() {
+  const [sortParameter, setSortParameter] = useState("default")
   const {
     pokemons,
     setPokemons,
@@ -19,23 +20,11 @@ function HomePage() {
   const addToPokedex = (pokemon) => {
     setPokedex([...pokedex, pokemon])
   }
-  const handleSortParameter = ({target}) => {
-    setSortParameter(target.value)
-}
-  const [sortParameter, setsortParameter] = useState("default")
   
   const handleSortParameter = ({ target }) => {
-    setsortParameter(target.value)
-  }
-  
-   const updateSortParameter=({target})=>{
     setSortParameter(target.value)
   }
 
-  const updateFilterTypeParameter=({target})=>{
-    setFilterTypeParameter(target.value)
-    console.log(target.value);
-  }
   const LoadMorePokemons = (loadMore) => {
     axios
       .get(`${loadMore}`)
@@ -64,7 +53,7 @@ function HomePage() {
   return (
     <Box
       display={"flex"}
-      justifyContent={[ "center"]}
+      justifyContent={["center"]}
       flexFlow={"column"}
       alignItems={["center"]}
       w={"full"}
@@ -83,7 +72,17 @@ function HomePage() {
           <option value={"tipo"}>Tipo</option>
         </Select>
       </SelectContainer>
-      <Grid p={[0, "2em"]} templateColumns={["1fr",  "repeat(2, 1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)", "repeat(4, 1fr)"]} gap={[10]}>
+      <Grid
+        p={[0, "2em"]}
+        templateColumns={[
+          "1fr",
+          "repeat(2, 1fr)",
+          "repeat(2, 1fr)",
+          "repeat(3, 1fr)",
+          "repeat(4, 1fr)",
+        ]}
+        gap={[10]}
+      >
         {notInPokedex
           ?.filter((pokemon) => {
             return pokemon.name
