@@ -15,6 +15,7 @@ Nele você pode criar sua própria pokédex com os seus pokémons preferidos.**
 - JavaScript
 - Estilização CSS (Styled Componentes e Chakra UI Design System)
 - Customs e React Hooks
+- Axios
 - React Router DOM
 - Integração com API rest via axios.
 
