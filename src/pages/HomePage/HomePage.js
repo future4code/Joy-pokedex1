@@ -15,17 +15,27 @@ function HomePage() {
     setLoadMore,
     loadMore,
   } = useContext(GlobalContext)
-  
+
+  const addToPokedex = (pokemon) => {
+    setPokedex([...pokedex, pokemon])
+  }
+  const handleSortParameter = ({target}) => {
+    setSortParameter(target.value)
+}
   const [sortParameter, setsortParameter] = useState("default")
   
   const handleSortParameter = ({ target }) => {
     setsortParameter(target.value)
   }
   
-  const addToPokedex = (pokemon) => {
-    setPokedex([...pokedex, pokemon])
+   const updateSortParameter=({target})=>{
+    setSortParameter(target.value)
   }
 
+  const updateFilterTypeParameter=({target})=>{
+    setFilterTypeParameter(target.value)
+    console.log(target.value);
+  }
   const LoadMorePokemons = (loadMore) => {
     axios
       .get(`${loadMore}`)
