@@ -60,7 +60,7 @@ console.log(pokemonType);
         setSortParameter,
         pokemonType,
         filterTypeParameter,
-        setFilterTypeParameter
+        setFilterTypeParameter,
         loadMore,
         setLoadMore,
 

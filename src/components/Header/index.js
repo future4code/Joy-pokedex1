@@ -12,11 +12,12 @@ import {
 import Marca from "../../assets/pokedex.png"
 import Pokebola from "../../assets/pokeball-white2.png"
 import Pokemon from "../../assets/pikachu-white.png"
-import { goToHomePage, goToPokedexPage } from "../../routes/coordinator"
+import { goToBattlePage, goToHomePage, goToPokedexPage } from "../../routes/coordinator"
 import { useNavigate } from "react-router-dom"
 import { SearchIcon } from "@chakra-ui/icons"
 import { useContext } from "react"
 import { GlobalContext } from "../../GlobalContext/GlobalContext"
+import Batalha from "../../assets/poke-chocke.png"
 
 const Header = () => {
   const { searchPokemon, setSearchPokemon} = useContext(GlobalContext)
@@ -95,6 +96,21 @@ const Header = () => {
               >
                 <Image src={Pokemon} w={"2em"} h={"2em"} ml={"1.5em"} />
                 <Text> Pokémons</Text>
+              </ListItem>
+              <ListItem
+                p="2em"
+                
+                bg={"background.blue"}
+                _hover={{ bg: "#e65f05" }}
+                color={"white"}
+                cursor={"pointer"}
+                onClick={() => {
+                  goToBattlePage(navigate)
+                }}
+                
+              >
+                <Image src={Batalha} w={"2.3em"} h={"2em"} ml={"0.3em"}  />
+                <Text> Batalha</Text>
               </ListItem>
             </Flex>
           </UnorderedList>

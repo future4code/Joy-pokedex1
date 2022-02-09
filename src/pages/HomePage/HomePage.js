@@ -12,7 +12,7 @@ function HomePage() {
 
   const {
     pokemons,
-       searchPokemon,
+     
     setPokemons,
     searchPokemon,
     pokedex,
@@ -21,15 +21,13 @@ function HomePage() {
     loadMore,
       sortParameter,setSortParameter,pokemonType,filterTypeParameter,setFilterTypeParameter
   } = useContext(GlobalContext)
-const [sortParameter, setsortParameter] = useState ("default")
+
 const handleSortParameter = ({target}) => {
-    setsortParameter(target.value)
+    setSortParameter(target.value)
 }
   const addToPokedex = (pokemon) => {
     setPokedex([...pokedex, pokemon])
   }
-
-
 
     const updateSortParameter=({target})=>{
     setSortParameter(target.value)
