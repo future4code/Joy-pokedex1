@@ -54,11 +54,13 @@ function HomePage() {
   return (
     <Box
       display={"flex"}
-      justifyContent={"center"}
+      justifyContent={[ "center"]}
       flexFlow={"column"}
-      alignItems={"center"}
+      alignItems={["center"]}
+      w={"full"}
+      gap={5}
     >
-      <SelectContainer display={"flex"}>
+      <SelectContainer>
         <Select
           value={sortParameter}
           onChange={handleSortParameter}
@@ -71,7 +73,7 @@ function HomePage() {
           <option value={"tipo"}>Tipo</option>
         </Select>
       </SelectContainer>
-      <Grid p={"2em"} templateColumns="repeat(4, 1fr)" gap={10}>
+      <Grid p={[0, "2em"]} templateColumns={["1fr",  "repeat(2, 1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)", "repeat(4, 1fr)"]} gap={[10]}>
         {notInPokedex
           ?.filter((pokemon) => {
             return pokemon.name
