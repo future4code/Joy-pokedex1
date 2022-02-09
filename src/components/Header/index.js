@@ -12,7 +12,11 @@ import {
 import Marca from "../../assets/pokedex.png"
 import Pokebola from "../../assets/pokeball-white2.png"
 import Pokemon from "../../assets/pikachu-white.png"
-import { goToBattlePage, goToHomePage, goToPokedexPage } from "../../routes/coordinator"
+import {
+  goToBattlePage,
+  goToHomePage,
+  goToPokedexPage,
+} from "../../routes/coordinator"
 import { useNavigate } from "react-router-dom"
 import { SearchIcon } from "@chakra-ui/icons"
 import { useContext } from "react"
@@ -50,11 +54,10 @@ const Header = () => {
           goToHomePage(navigate)
         }}
       />
-      <InputGroup >
+      <InputGroup>
         <InputRightElement
           pointerEvents="none"
           children={<SearchIcon color="white" />}
-          
         />
         <Input
           value={searchPokemon}
@@ -68,8 +71,8 @@ const Header = () => {
       </InputGroup>
       <Menu isLazy>
         <nav>
-          <UnorderedList styleType={"none"}>
-            <Flex gap={[20, 0]}>
+          <UnorderedList styleType={"none"} m={["0 auto"]}>
+            <Flex gap={[5, 0]}>
               <ListItem
                 bg={"background.blue"}
                 _hover={{ bg: "#E3350D" }}
@@ -102,16 +105,14 @@ const Header = () => {
                   goToHomePage(navigate)
                 }}
               >
-                <Image
-                  src={Pokemon}
-                  w={["1em", "2em"]}
-                  h={["1em", "2em"]}
-                />
+                <Image src={Pokemon} w={["1em", "2em"]} h={["1em", "2em"]} />
                 <Text> Pokémons</Text>
               </ListItem>
               <ListItem
-                p="2em"
-                
+                display={"flex"}
+                alignItems={"center"}
+                flexFlow={"column"}
+                p={[".5em", "2em"]}
                 bg={"background.blue"}
                 _hover={{ bg: "#e65f05" }}
                 color={"white"}
@@ -119,9 +120,8 @@ const Header = () => {
                 onClick={() => {
                   goToBattlePage(navigate)
                 }}
-                
               >
-                <Image src={Batalha} w={"2.3em"} h={"2em"} ml={"0.3em"}  />
+                <Image src={Batalha} w={["2em", "2em"]} h={["1em", "2em"]} />
                 <Text> Batalha</Text>
               </ListItem>
             </Flex>
