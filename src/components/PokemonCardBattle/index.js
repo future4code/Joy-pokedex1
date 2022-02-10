@@ -1,29 +1,29 @@
-import { Box, Button, Center, Flex, Image, Text } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { httpClient } from "../../constants"
-import "../../index.css"
-import { goToPokemonDetailsPage } from "../../routes/coordinator"
+import { Box, Center, Flex, Image, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { httpClient } from "../../constants";
+import "../../index.css";
+import { goToPokemonDetailsPage } from "../../routes/coordinator";
 const PokemonCardBattle = ({ pokemons, handleClick, textButton }) => {
-  const [pokemon, setPokemon] = useState({})
+  const [pokemon, setPokemon] = useState({});
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     httpClient.get(`${pokemons.name}`).then((res) => {
-      const { id, types, sprites } = res.data
-      
+      const { id, types, sprites } = res.data;
+
       setPokemon({
         id,
         image: sprites.other["official-artwork"].front_default,
         type: types.map((type) => {
           return {
             name: type["type"].name,
-          }
+          };
         }),
-      })
-    })
-  }, [pokemons.name])
+      });
+    });
+  }, [pokemons.name]);
 
   return (
     <Box
@@ -58,7 +58,7 @@ const PokemonCardBattle = ({ pokemons, handleClick, textButton }) => {
                   {type.name}
                 </Text>
               </Box>
-            )
+            );
           })
         ) : (
           <Box
@@ -74,9 +74,8 @@ const PokemonCardBattle = ({ pokemons, handleClick, textButton }) => {
           </Box>
         )}
       </Flex>
-      <Center>
-      </Center>
+      <Center></Center>
     </Box>
-  )
-}
-export default PokemonCardBattle
+  );
+};
+export default PokemonCardBattle;

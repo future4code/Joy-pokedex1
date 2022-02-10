@@ -1,8 +1,7 @@
-import { Flex, Grid, Select } from "@chakra-ui/react";
+import { Button, Flex, Grid, Select, Text } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import PokemonCardBattle from "../../components/PokemonCardBattle";
 import Stats from "../../components/Stats";
-import { httpClient, url } from "../../constants";
 import { GlobalContext } from "../../GlobalContext/GlobalContext";
 const BattlePage = () => {
   const { pokedex } = useContext(GlobalContext);
@@ -45,7 +44,7 @@ const BattlePage = () => {
           })}
         </Select>
       </Flex>
-      <Grid templateColumns={"300px 1fr 300px 250px"} p={10}>
+      <Grid templateColumns={"300px 310px 100px 300px 250px"}  p={10}>
 	      
         {pokedex.filter((pokemon1)=>{
 		return pokemon1.name.includes(selectPokemon1)
@@ -54,12 +53,13 @@ const BattlePage = () => {
           return [<Stats pokemonName={pokemon1.name}/>,<PokemonCardBattle key={pokemon1.name} pokemons={pokemon1} />
 	];
         })}
+        <Text fontSize="4xl">VS</Text>
+        
 	{pokedex.filter((pokemon2)=>{
 		return pokemon2.name.includes(selectPokemon2)
 	}).map((pokemon2) => {
 	
-		return [<Stats pokemonName={pokemon2.name}/>,<PokemonCardBattle key={pokemon2.name} pokemons={pokemon2} />
-			];
+		return [<PokemonCardBattle key={pokemon2.name} pokemons={pokemon2}/>, <Stats pokemonName={pokemon2.name}/> ];
 	      })}
       </Grid>
     </>
