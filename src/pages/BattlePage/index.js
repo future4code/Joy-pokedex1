@@ -25,6 +25,7 @@ const BattlePage = () => {
       console.log(totalStatus1)
       setBattle1(totalStatus1)
     })
+    setWinner(null)
   }
   const handlePokemon2 = ({ target }) => {
     setSelectPokemon2(target.value)
@@ -40,15 +41,16 @@ const BattlePage = () => {
       console.log(totalStatus2)
       setBattle2(totalStatus2)
     })
+    setWinner(null)
   }
 
   const handleBattle = () => {
     if (battle1 > battle2) {
-      setWinner(selectPokemon1 + " Venceu")
+      setWinner(selectPokemon1 + " VENCEU!")
     } else if (battle1 < battle2) {
-      setWinner(selectPokemon2 + " Venceu")
+      setWinner(selectPokemon2 + " VENCEU!")
     } else {
-      setWinner("EMPATE")
+      setWinner("EMPATE!")
     }
   }
 
@@ -105,7 +107,7 @@ const BattlePage = () => {
         >
           <Text fontSize="4xl">VS</Text>
           <Button onClick={handleBattle}>Battle</Button>
-          {winner && <Text>{winner}</Text>}
+          {winner && <Text textTransform={"uppercase"}>{winner}</Text>}
         </Flex>
 
         {pokedex
