@@ -14,13 +14,7 @@ const BattlePage = () => {
 
   const handlePokemon1 = ({ target }) => {
     setSelectPokemon1(target.value)
-  }
-  const handlePokemon2 = ({ target }) => {
-    setSelectPokemon2(target.value)
-  }
-  
-  const handleBattle = () => {
-    httpClient.get(`/${selectPokemon1}/`).then(({ data }) => {
+    httpClient.get(`/${target.value}/`).then(({ data }) => {
       console.log(data)
       const status = data.stats.map((date) => {
         return date.base_stat
@@ -31,8 +25,10 @@ const BattlePage = () => {
       console.log(totalStatus1)
       setBattle1(totalStatus1)
     })
-
-    httpClient.get(`/${selectPokemon2}/`).then(({ data }) => {
+  }
+  const handlePokemon2 = ({ target }) => {
+    setSelectPokemon2(target.value)
+    httpClient.get(`/${target.value}/`).then(({ data }) => {
       console.log(data)
       const status = data.stats.map((date) => {
         return date.base_stat
@@ -44,19 +40,23 @@ const BattlePage = () => {
       console.log(totalStatus2)
       setBattle2(totalStatus2)
     })
+  }
 
+  const handleBattle = () => {
     if (battle1 > battle2) {
       setWinner(selectPokemon1 + " Venceu")
-    } else {
+    } else if (battle1 < battle2) {
       setWinner(selectPokemon2 + " Venceu")
+    } else {
+      setWinner("EMPATE")
     }
   }
 
   return (
     <Box>
       <Flex justify={"space-around"}>
-        <Select w={"auto"} onChange={handlePokemon1} defaultValue="">
-          <option value="" disabled >
+        <Select w={"auto"} onChange={handlePokemon1} defaultValue="DEFAULT">
+          <option value="DEFAULT" disabled selected>
             Selecione um Pokémon
           </option>
           {pokedex.map((pokemon1) => {
@@ -68,8 +68,8 @@ const BattlePage = () => {
           })}
         </Select>
 
-        <Select w={"auto"} onChange={handlePokemon2} defaultValue="">
-          <option value="" disabled >
+        <Select w={"auto"} onChange={handlePokemon2} defaultValue="DEFAULT">
+          <option value="DEFAULT" disabled selected> 
             Selecione um Pokémon
           </option>
           {pokedex.map((pokemon2) => {
@@ -104,9 +104,7 @@ const BattlePage = () => {
           justifyContent={"space-around"}
         >
           <Text fontSize="4xl">VS</Text>
-          <Button onClick={handleBattle}>
-            Battle
-          </Button>
+          <Button onClick={handleBattle}>Battle</Button>
           {winner && <Text>{winner}</Text>}
         </Flex>
 
