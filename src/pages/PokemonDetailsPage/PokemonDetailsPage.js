@@ -43,7 +43,7 @@ function PokemonDetailsPage() {
         console.log(err);
       });
   }, [params.id]);
-  console.log(pokemonDetails && pokemonDetails);
+
   return (
     <Flex justify={"center"} p={8} m={8} gap={40} fontFamily={"Flexo-Demi"}>
       <Box>

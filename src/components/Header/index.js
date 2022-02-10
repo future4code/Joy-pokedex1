@@ -74,6 +74,7 @@ const Header = () => {
                 p="2em"
                 cursor={"pointer"}
                 onClick={() => goToPokedexPage(navigate)}
+                borderBottom={'5px solid #E3350D'}
               >
                 <Image
                   src={Pokebola}
@@ -93,6 +94,7 @@ const Header = () => {
                 onClick={() => {
                   goToHomePage(navigate)
                 }}
+                borderBottom={'5px solid #DAA520'}
               >
                 <Image src={Pokemon} w={"2em"} h={"2em"} ml={"1.5em"} />
                 <Text> Pokémons</Text>
@@ -107,7 +109,7 @@ const Header = () => {
                 onClick={() => {
                   goToBattlePage(navigate)
                 }}
-                
+                borderBottom={'5px solid #ff6702'}
               >
                 <Image src={Batalha} w={"2.3em"} h={"2em"} ml={"0.3em"}  />
                 <Text> Batalha</Text>

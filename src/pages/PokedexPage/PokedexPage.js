@@ -12,7 +12,7 @@ function PokedexPage() {
     })
     setPokedex(newPokedex)
   }
-
+console.log(pokedex)
   return (
     <Box display={"flex"} justifyContent={"center"}>
       <Grid p={"2em"} templateColumns="repeat(4, 1fr)" gap={10}>
