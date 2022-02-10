@@ -43,9 +43,9 @@ function PokemonDetailsPage() {
         })
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }, [params.id])
+        console.log(err);
+      });
+  }, [params.id]);
 
   return (
     <Box>

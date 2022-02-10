@@ -65,6 +65,7 @@ function HomePage() {
           onChange={handleSortParameter}
           fontFamily={"Flexo-Demi"}
         >
+          <option value={"default"} disabled selected>Ordenar por</option>
           <option value={"default"} disabled>
             Ordenar por
           </option>
@@ -96,7 +97,6 @@ function HomePage() {
             if (sortParameter === "a-z") {
               return currentPokemon.name.localeCompare(nextPokemon.name)
             }
-            // if (sortParameter === ""){}
           })
           .map((pokemon) => {
             return (

@@ -80,6 +80,7 @@ const Header = () => {
                 p={[".5em", "2em"]}
                 cursor={"pointer"}
                 onClick={() => goToPokedexPage(navigate)}
+                borderBottom={'5px solid #E3350D'}
                 display={"flex"}
                 alignItems={"center"}
                 flexFlow={"column"}
@@ -104,6 +105,7 @@ const Header = () => {
                 onClick={() => {
                   goToHomePage(navigate)
                 }}
+                borderBottom={'5px solid #DAA520'}
               >
                 <Image src={Pokemon} w={["1em", "2em"]} h={["1em", "2em"]} />
                 <Text> Pokémons</Text>
@@ -120,6 +122,7 @@ const Header = () => {
                 onClick={() => {
                   goToBattlePage(navigate)
                 }}
+                borderBottom={'5px solid #ff6702'}
               >
                 <Image src={Batalha} w={["2em", "2em"]} h={["1em", "2em"]} />
                 <Text> Batalha</Text>

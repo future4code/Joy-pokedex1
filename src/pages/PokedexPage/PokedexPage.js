@@ -12,7 +12,7 @@ function PokedexPage() {
     })
     setPokedex(newPokedex)
   }
-
+console.log(pokedex)
   return (
     <Box display={"flex"} justifyContent={"center"} mt={4} mb={4}>
       {pokedex.length === 0 ? (
