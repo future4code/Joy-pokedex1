@@ -12,7 +12,11 @@ import {
 import Marca from "../../assets/pokedex.png"
 import Pokebola from "../../assets/pokeball-white2.png"
 import Pokemon from "../../assets/pikachu-white.png"
-import { goToBattlePage, goToHomePage, goToPokedexPage } from "../../routes/coordinator"
+import {
+  goToBattlePage,
+  goToHomePage,
+  goToPokedexPage,
+} from "../../routes/coordinator"
 import { useNavigate } from "react-router-dom"
 import { SearchIcon } from "@chakra-ui/icons"
 import { useContext } from "react"
@@ -20,7 +24,7 @@ import { GlobalContext } from "../../GlobalContext/GlobalContext"
 import Batalha from "../../assets/poke-chocke.png"
 
 const Header = () => {
-  const { searchPokemon, setSearchPokemon} = useContext(GlobalContext)
+  const { searchPokemon, setSearchPokemon } = useContext(GlobalContext)
 
   const navigate = useNavigate()
 
@@ -30,25 +34,28 @@ const Header = () => {
 
   return (
     <Flex
-      direction={"row"}
-      justify={"space-between"}
+      direction={["column", "row"]}
+      justify={["space-between"]}
       align={"center"}
       bg={"background.blue"}
       borderBottom={"solid 2px #dedede"}
+      p={[".5em", 0]}
+      w={["full"]}
+      gap={[2, 0]}
     >
       <Image
         src={Marca}
-        w={"10em"}
-        h={"5.5em"}
-        p={"0.5em"}
-        m={3}
+        w={["8em", "10em"]}
+        h={["4em", "5.5em"]}
+        p={[0, "0.5em"]}
+        m={[0, 3]}
         cursor={"pointer"}
         onClick={() => {
           goToHomePage(navigate)
         }}
       />
       <InputGroup>
-        <InputRightElement 
+        <InputRightElement
           pointerEvents="none"
           children={<SearchIcon color="white" />}
         />
@@ -60,33 +67,40 @@ const Header = () => {
           placeholder="Procure um Pokémon..."
           _placeholder={{ color: "white" }}
           color={"white"}
-          ml={5}
         />
       </InputGroup>
       <Menu isLazy>
         <nav>
-          <UnorderedList styleType={"none"}>
-            <Flex>
+          <UnorderedList styleType={"none"} m={["0 auto"]}>
+            <Flex gap={[5, 0]}>
               <ListItem
                 bg={"background.blue"}
                 _hover={{ bg: "#E3350D" }}
                 color={"white"}
-                p="2em"
+                p={[".5em", "2em"]}
                 cursor={"pointer"}
                 onClick={() => goToPokedexPage(navigate)}
+<<<<<<< HEAD
                 borderBottom={'5px solid #E3350D'}
+=======
+                display={"flex"}
+                alignItems={"center"}
+                flexFlow={"column"}
+>>>>>>> master
               >
                 <Image
                   src={Pokebola}
                   _hover={{ fill: "red" }}
-                  w={"2em"}
-                  h={"2em"}
-                  ml={"0.8em"}
+                  w={["1em", "2em"]}
+                  h={["1em", "2em"]}
                 />
                 Pokédex
               </ListItem>
               <ListItem
-                p="2em"
+                display={"flex"}
+                alignItems={"center"}
+                flexFlow={"column"}
+                p={[".5em", "2em"]}
                 bg={"background.blue"}
                 _hover={{ bg: "#DAA520" }}
                 color={"white"}
@@ -96,12 +110,14 @@ const Header = () => {
                 }}
                 borderBottom={'5px solid #DAA520'}
               >
-                <Image src={Pokemon} w={"2em"} h={"2em"} ml={"1.5em"} />
+                <Image src={Pokemon} w={["1em", "2em"]} h={["1em", "2em"]} />
                 <Text> Pokémons</Text>
               </ListItem>
               <ListItem
-                p="2em"
-                
+                display={"flex"}
+                alignItems={"center"}
+                flexFlow={"column"}
+                p={[".5em", "2em"]}
                 bg={"background.blue"}
                 _hover={{ bg: "#e65f05" }}
                 color={"white"}
@@ -109,9 +125,12 @@ const Header = () => {
                 onClick={() => {
                   goToBattlePage(navigate)
                 }}
+<<<<<<< HEAD
                 borderBottom={'5px solid #ff6702'}
+=======
+>>>>>>> master
               >
-                <Image src={Batalha} w={"2.3em"} h={"2em"} ml={"0.3em"}  />
+                <Image src={Batalha} w={["2em", "2em"]} h={["1em", "2em"]} />
                 <Text> Batalha</Text>
               </ListItem>
             </Flex>

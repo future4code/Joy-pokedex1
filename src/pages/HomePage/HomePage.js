@@ -1,42 +1,30 @@
-
 import { Box, Button, Grid, Select } from "@chakra-ui/react"
 import axios from "axios"
-import React, { useEffect, useState, useContext } from "react";
-
+import React, { useContext, useState } from "react"
 import PokemonCard from "../../components/PokemonCard"
 import { GlobalContext } from "../../GlobalContext/GlobalContext"
-import { SelectContainer } from './styled'
+import { SelectContainer } from "./styled"
+
 function HomePage() {
-  //já está sendo recebida as props de pesquisa do header.
-
-
+  const [sortParameter, setSortParameter] = useState("default")
   const {
     pokemons,
-     
     setPokemons,
     searchPokemon,
     pokedex,
     setPokedex,
     setLoadMore,
     loadMore,
-      sortParameter,setSortParameter,pokemonType,filterTypeParameter,setFilterTypeParameter
   } = useContext(GlobalContext)
 
-const handleSortParameter = ({target}) => {
-    setSortParameter(target.value)
-}
   const addToPokedex = (pokemon) => {
     setPokedex([...pokedex, pokemon])
   }
-
-    const updateSortParameter=({target})=>{
+  
+  const handleSortParameter = ({ target }) => {
     setSortParameter(target.value)
   }
 
-  const updateFilterTypeParameter=({target})=>{
-    setFilterTypeParameter(target.value)
-    console.log(target.value);
-  }
   const LoadMorePokemons = (loadMore) => {
     axios
       .get(`${loadMore}`)
@@ -52,7 +40,6 @@ const handleSortParameter = ({target}) => {
   }
 
   const notInPokedex = pokemons?.filter((pokemon) => {
-
     const inPokedex = pokedex.find((pokedex) => {
       return pokemon.name === pokedex.name
     })
@@ -61,54 +48,53 @@ const handleSortParameter = ({target}) => {
     } else {
       return true
     }
-  }
-  )
-console.log(notInPokedex);
+  })
 
   return (
-
     <Box
       display={"flex"}
-      justifyContent={"center"}
+      justifyContent={["center"]}
       flexFlow={"column"}
-      alignItems={"center"}
+      alignItems={["center"]}
+      w={"full"}
+      gap={5}
     >
-         {/* <Select name="sort" value={sortParameter} onChange={updateSortParameter}>
-        <option value={'a-z'}>A-Z</option>
-        <option value={'z-a'}>Z-A</option>
-      </Select>
-      <Select name='filterType' onChange={updateFilterTypeParameter} value={filterTypeParameter}>
-       <option value={'grass'}>Grass</option>
-       <option value={'poison'}>Poison</option>
-       <option value={'fire'}>Fire</option>
-       <option value={'water'}>Water</option>
-       <option value={'flying'}>Flying</option>
-       <option value={'bug'}>Bug</option>
-       <option value={'normal'}>Normal</option>
-      </Select>*/}
-         <SelectContainer display={"flex"}>
-        <Select 
-        value={sortParameter}
-        onChange={handleSortParameter}
-        fontFamily={"Flexo-Demi"}
+      <SelectContainer>
+        <Select
+          value={sortParameter}
+          onChange={handleSortParameter}
+          fontFamily={"Flexo-Demi"}
         >
           <option value={"default"} disabled selected>Ordenar por</option>
+          <option value={"default"} disabled>
+            Ordenar por
+          </option>
           <option value={"a-z"}>A-Z</option>
           <option value={"tipo"}>Tipo</option>
         </Select>
       </SelectContainer>
-
-      <Grid p={"2em"} templateColumns="repeat(4, 1fr)" gap={10}>
+      <Grid
+        p={[0, "2em"]}
+        templateColumns={[
+          "1fr",
+          "repeat(2, 1fr)",
+          "repeat(2, 1fr)",
+          "repeat(3, 1fr)",
+          "repeat(4, 1fr)",
+        ]}
+        gap={[10]}
+      >
         {notInPokedex
           ?.filter((pokemon) => {
             return pokemon.name
               .toLowerCase()
               .includes(searchPokemon.toLowerCase())
-          }).filter(pokemon => {
+          })
+          .filter((pokemon) => {
             return pokemon.name.includes(searchPokemon)
           })
-          .sort((currentPokemon, nextPokemon)=>{
-            if (sortParameter === "a-z"){
+          .sort((currentPokemon, nextPokemon) => {
+            if (sortParameter === "a-z") {
               return currentPokemon.name.localeCompare(nextPokemon.name)
             }
           })
