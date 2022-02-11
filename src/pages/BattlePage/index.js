@@ -59,8 +59,8 @@ const BattlePage = () => {
   return (
     <Box>
       <Flex justify={"space-around"}>
-        <Select w={"auto"} onChange={handlePokemon1} defaultValue="DEFAULT">
-          <option value="DEFAULT" disabled selected>
+        <Select w={"auto"} onChange={handlePokemon1} defaultValue={{}}>
+          <option  value={{}} disabled>
             Selecione um Pokémon
           </option>
           {pokedex.map((pokemon1) => {
@@ -72,8 +72,8 @@ const BattlePage = () => {
           })}
         </Select>
 
-        <Select w={"auto"} onChange={handlePokemon2} defaultValue="DEFAULT">
-          <option value="DEFAULT" disabled selected> 
+        <Select w={"auto"} onChange={handlePokemon2} defaultValue={{}}>
+          <option value={{}} disabled> 
             Selecione um Pokémon
           </option>
           {pokedex.map((pokemon2) => {
