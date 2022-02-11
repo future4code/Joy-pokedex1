@@ -65,7 +65,7 @@ function HomePage() {
           onChange={handleSortParameter}
           fontFamily={"Flexo-Demi"}
         >
-          <option value={"default"} disabled selected>Ordenar por</option>
+
           <option value={"default"} disabled>
             Ordenar por
           </option>
@@ -100,12 +100,13 @@ function HomePage() {
           })
           .map((pokemon) => {
             return (
+              (pokemon !== 0) ?
               <PokemonCard
                 key={pokemon.name}
                 pokemons={pokemon}
                 handleClick={() => addToPokedex(pokemon)}
                 textButton={"Adicionar à Pokédex"}
-              />
+              /> : <p> Nenhum Pokemon Localizado</p>
             )
           })}
       </Grid>
