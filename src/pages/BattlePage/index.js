@@ -1,9 +1,11 @@
-import { Box, Button, Flex, Grid, Select, Text } from "@chakra-ui/react"
+import { Box, Button, Flex, Grid, Select, Text, Image } from "@chakra-ui/react"
 import React, { useContext, useState } from "react"
 import PokemonCardBattle from "../../components/PokemonCardBattle"
 import Stats from "../../components/Stats"
 import { httpClient } from "../../constants"
 import { GlobalContext } from "../../GlobalContext/GlobalContext"
+import vsimage from '../../assets/vsimage.png'
+
 const BattlePage = () => {
   const { pokedex } = useContext(GlobalContext)
   const [selectPokemon1, setSelectPokemon1] = useState({})
@@ -105,7 +107,11 @@ const BattlePage = () => {
           alignItems={"center"}
           justifyContent={"space-around"}
         >
-          <Text fontSize="4xl">VS</Text>
+          {battle2 > 0 && <Image 
+          alt="versus image" 
+          src={vsimage}
+          boxSize='16em'
+          />}
           <Button onClick={handleBattle}>Battle</Button>
           {winner && <Text textTransform={"uppercase"}>{winner}</Text>}
         </Flex>
