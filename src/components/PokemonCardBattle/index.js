@@ -1,17 +1,17 @@
-import { Box, Center, Flex, Image, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { httpClient } from "../../constants";
-import "../../index.css";
-import { goToPokemonDetailsPage } from "../../routes/coordinator";
+import { Box, Center, Flex, Image, Text } from "@chakra-ui/react"
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { httpClient } from "../../constants"
+import "../../index.css"
+import { goToPokemonDetailsPage } from "../../routes/coordinator"
 const PokemonCardBattle = ({ pokemons, handleClick, textButton }) => {
-  const [pokemon, setPokemon] = useState({});
+  const [pokemon, setPokemon] = useState({})
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   useEffect(() => {
     httpClient.get(`${pokemons.name}`).then((res) => {
-      const { id, types, sprites } = res.data;
+      const { id, types, sprites } = res.data
 
       setPokemon({
         id,
@@ -19,19 +19,19 @@ const PokemonCardBattle = ({ pokemons, handleClick, textButton }) => {
         type: types.map((type) => {
           return {
             name: type["type"].name,
-          };
+          }
         }),
-      });
-    });
-  }, [pokemons.name]);
+      })
+    })
+  }, [pokemons.name])
 
   return (
     <Box
       boxShadow="rgb(0 0 0 / 30%) 0px 4px 8px 0px"
       rounded={"md"}
-      p={"1em"}
-      w={"16em"}
-      h={"22em"}
+      p={["0.4em", "1em"]}
+      w={["6em", "10em", "10em", "13em"]}
+      h={["auto", "12em", "15em", "18em"]}
       fontFamily={"Flexo-Demi"}
       _hover={{ transform: `translate(0px, -5px)` }}
       cursor={"pointer"}
@@ -41,34 +41,41 @@ const PokemonCardBattle = ({ pokemons, handleClick, textButton }) => {
         onClick={() => goToPokemonDetailsPage(navigate, pokemon.id)}
       />
       <Text color={"text.gray"}>Nº{pokemon.id}</Text>
-      <Text fontSize="2xl">{pokemons.name}</Text>
-      <Flex>
+      <Text fontSize={["small", "2xl"]}>{pokemons.name}</Text>
+      <Flex gap={2}>
         {pokemon.type?.length >= 2 ? (
           pokemon.type.map((type) => {
             return (
               <Box
                 key={type.name}
                 bg={`type.${type.name}`}
-                m={"0.5em"}
                 borderRadius={"8"}
-                w={"10em"}
-                h={"1.5em"}
+                w={["5em", "5em", "10em"]}
+                p={["0.1em"]}
               >
-                <Text color={"white"} textAlign={"center"}>
+                <Text
+                  fontSize={["small", "1xl", "initial"]}
+                  color={"white"}
+                  textAlign={"center"}
+                >
                   {type.name}
                 </Text>
               </Box>
-            );
+            )
           })
         ) : (
           <Box
             bg={`type.${pokemon?.type?.[0].name}`}
-            m={"0.5em auto"}
+            m={"0 auto"}
             borderRadius={"8"}
-            w={"10em"}
-            h={"1.5em"}
+            w={["5em", "5em", "10em"]}
+            p={["0.1em"]}
           >
-            <Text color={"white"} textAlign={"center"}>
+            <Text
+              fontSize={["small", "1xl", "initial"]}
+              color={"white"}
+              textAlign={"center"}
+            >
               {pokemon?.type?.[0].name}
             </Text>
           </Box>
@@ -76,6 +83,6 @@ const PokemonCardBattle = ({ pokemons, handleClick, textButton }) => {
       </Flex>
       <Center></Center>
     </Box>
-  );
-};
-export default PokemonCardBattle;
+  )
+}
+export default PokemonCardBattle

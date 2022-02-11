@@ -20,7 +20,7 @@ function HomePage() {
   const addToPokedex = (pokemon) => {
     setPokedex([...pokedex, pokemon])
   }
-  
+
   const handleSortParameter = ({ target }) => {
     setSortParameter(target.value)
   }
@@ -65,16 +65,14 @@ function HomePage() {
           onChange={handleSortParameter}
           fontFamily={"Flexo-Demi"}
         >
-
           <option value={"default"} disabled>
             Ordenar por
           </option>
           <option value={"a-z"}>A-Z</option>
-          <option value={"tipo"}>Tipo</option>
         </Select>
       </SelectContainer>
       <Grid
-        p={[0, "2em"]}
+        p={[0, "1em"]}
         templateColumns={[
           "1fr",
           "repeat(2, 1fr)",
@@ -99,14 +97,15 @@ function HomePage() {
             }
           })
           .map((pokemon) => {
-            return (
-              (pokemon !== 0) ?
+            return pokemon !== 0 ? (
               <PokemonCard
                 key={pokemon.name}
                 pokemons={pokemon}
                 handleClick={() => addToPokedex(pokemon)}
                 textButton={"Adicionar à Pokédex"}
-              /> : <p> Nenhum Pokemon Localizado</p>
+              />
+            ) : (
+              <p> Nenhum Pokemon Localizado</p>
             )
           })}
       </Grid>

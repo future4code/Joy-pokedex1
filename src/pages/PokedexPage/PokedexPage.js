@@ -12,12 +12,18 @@ function PokedexPage() {
     })
     setPokedex(newPokedex)
   }
-console.log(pokedex)
+
   return (
     <Box display={"flex"} justifyContent={"center"} mt={4} mb={4}>
       {pokedex.length === 0 ? (
-        <Flex direction={"column"} width={"20em"} pt={"2em"}>
-          <Image src={PokebolaCinza} />
+        <Flex
+          direction={"column"}
+          width={"20em"}
+          pt={"2em"}
+          alignItems={"center"}
+          gap={8}
+        >
+          <Image src={PokebolaCinza} w={["80vw", "80vw"]} />
           <Center>
             <Text
               fontFamily={"Flexo-Demi"}
@@ -30,7 +36,17 @@ console.log(pokedex)
           </Center>
         </Flex>
       ) : (
-        <Grid  p={[0, "2em"]} templateColumns={["1fr",  "repeat(2, 1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)", "repeat(4, 1fr)"]} gap={[10]}>
+        <Grid
+          p={[0, "2em"]}
+          templateColumns={[
+            "1fr",
+            "repeat(2, 1fr)",
+            "repeat(2, 1fr)",
+            "repeat(3, 1fr)",
+            "repeat(4, 1fr)",
+          ]}
+          gap={[10]}
+        >
           {pokedex
             ?.filter((pokemon) => {
               return pokemon.name

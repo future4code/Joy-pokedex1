@@ -1,10 +1,10 @@
-import { Box, Button, Flex, Grid, Select, Text, Image } from "@chakra-ui/react"
+import { Box, Button, Flex, Select, Text, Image } from "@chakra-ui/react"
 import React, { useContext, useState } from "react"
 import PokemonCardBattle from "../../components/PokemonCardBattle"
 import Stats from "../../components/Stats"
 import { httpClient } from "../../constants"
 import { GlobalContext } from "../../GlobalContext/GlobalContext"
-import vsimage from '../../assets/vsimage.png'
+import vsimage from "../../assets/vsimage.png"
 
 const BattlePage = () => {
   const { pokedex } = useContext(GlobalContext)
@@ -17,14 +17,12 @@ const BattlePage = () => {
   const handlePokemon1 = ({ target }) => {
     setSelectPokemon1(target.value)
     httpClient.get(`/${target.value}/`).then(({ data }) => {
-      console.log(data)
       const status = data.stats.map((date) => {
         return date.base_stat
       })
       const totalStatus1 = status.reduce((a, b) => {
         return a + b
       })
-      console.log(totalStatus1)
       setBattle1(totalStatus1)
     })
     setWinner(null)
@@ -32,15 +30,12 @@ const BattlePage = () => {
   const handlePokemon2 = ({ target }) => {
     setSelectPokemon2(target.value)
     httpClient.get(`/${target.value}/`).then(({ data }) => {
-      console.log(data)
       const status = data.stats.map((date) => {
         return date.base_stat
       })
-      console.log(status)
       const totalStatus2 = status.reduce((a, b) => {
         return a + b
       })
-      console.log(totalStatus2)
       setBattle2(totalStatus2)
     })
     setWinner(null)
@@ -57,10 +52,10 @@ const BattlePage = () => {
   }
 
   return (
-    <Box>
+    <Box p="1em 0">
       <Flex justify={"space-around"}>
         <Select w={"auto"} onChange={handlePokemon1} defaultValue={{}}>
-          <option  value={{}} disabled>
+          <option value={{}} disabled>
             Selecione um Pokémon
           </option>
           {pokedex.map((pokemon1) => {
@@ -73,7 +68,7 @@ const BattlePage = () => {
         </Select>
 
         <Select w={"auto"} onChange={handlePokemon2} defaultValue={{}}>
-          <option value={{}} disabled> 
+          <option value={{}} disabled>
             Selecione um Pokémon
           </option>
           {pokedex.map((pokemon2) => {
@@ -85,21 +80,22 @@ const BattlePage = () => {
           })}
         </Select>
       </Flex>
-      <Grid
-        templateColumns={"1fr 1fr 1fr 1fr 1fr"}
-        p={10}
-        justifyContent={"center"}
-        justifyItems={"center"}
+      <Flex
+        p={["2", "2", "2", "2"]}
+        justifyContent={["space-between", "space-around"]}
+        alignItems={"center"}
       >
         {pokedex
           .filter((pokemon1) => {
             return pokemon1.name.includes(selectPokemon1)
           })
           .map((pokemon1, index) => {
-            return [
-              <Stats key={index} pokemonName={pokemon1.name} />,
-              <PokemonCardBattle key={pokemon1.name} pokemons={pokemon1} />,
-            ]
+            return (
+              <Flex key={index} direction={["column-reverse", "row"]}>
+                <Stats pokemonName={pokemon1.name} />,
+                <PokemonCardBattle pokemons={pokemon1} />
+              </Flex>
+            )
           })}
 
         <Flex
@@ -107,13 +103,29 @@ const BattlePage = () => {
           alignItems={"center"}
           justifyContent={"space-around"}
         >
-          {battle2 > 0 && <Image 
-          alt="versus image" 
-          src={vsimage}
-          boxSize='16em'
-          />}
-          <Button onClick={handleBattle}>Battle</Button>
-          {winner && <Text textTransform={"uppercase"}>{winner}</Text>}
+          {battle2 > 0 && (
+            <Flex direction={"column"} gap={8}>
+              <Image
+                alt="versus image"
+                src={vsimage}
+                boxSize={["4em", "8em", "6em", "8em", "16em"]}
+                m={"0 auto"}
+              />
+              <Button
+                onClick={handleBattle}
+                m={"1em 0.1em"}
+                fontSize={["smaller", "initial"]}
+                p={"0"}
+              >
+                Batalhar
+              </Button>
+            </Flex>
+          )}
+          {winner && (
+            <Text textTransform={"uppercase"} textAlign={"center"}>
+              {winner}
+            </Text>
+          )}
         </Flex>
 
         {pokedex
@@ -121,12 +133,14 @@ const BattlePage = () => {
             return pokemon2.name.includes(selectPokemon2)
           })
           .map((pokemon2, index) => {
-            return [
-              <PokemonCardBattle key={pokemon2.name} pokemons={pokemon2} />,
-              <Stats key={index} pokemonName={pokemon2.name} />,
-            ]
+            return (
+              <Flex key={index} direction={["column", "row"]}>
+                <PokemonCardBattle pokemons={pokemon2} />,
+                <Stats pokemonName={pokemon2.name} />
+              </Flex>
+            )
           })}
-      </Grid>
+      </Flex>
     </Box>
   )
 }
