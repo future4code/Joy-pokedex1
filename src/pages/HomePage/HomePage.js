@@ -82,6 +82,7 @@ function HomePage() {
         ]}
         gap={[10]}
       >
+        
         {notInPokedex
           ?.filter((pokemon) => {
             return pokemon.name
@@ -97,16 +98,14 @@ function HomePage() {
             }
           })
           .map((pokemon) => {
-            return pokemon !== 0 ? (
+            return (
               <PokemonCard
                 key={pokemon.name}
                 pokemons={pokemon}
                 handleClick={() => addToPokedex(pokemon)}
                 textButton={"Adicionar à Pokédex"}
               />
-            ) : (
-              <p> Nenhum Pokemon Localizado</p>
-            )
+            ) 
           })}
       </Grid>
       <Box>
