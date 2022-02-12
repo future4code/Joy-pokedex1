@@ -32,6 +32,10 @@ nessa página também há a possibilidade remover o pokemon da pokedex e clicar 
 Na **Pagina de batalhas**, Dentre os pokemons que estão na sua pokedex, escolha dois deles e inicie uma batalha. 
 o que tiver melhores pontos de ataques e defesa sobreviverá, então, que vença o melhor! 
 
+### Link do Surge:
+[SurgeLabédex](https://jittery-horse.surge.sh/)
+
+
 ### 🎥 Video Demonstrativo
 https://user-images.githubusercontent.com/89329137/153695473-113287ff-2968-4100-b169-f643fa443f80.mp4
 
@@ -43,9 +47,6 @@ https://user-images.githubusercontent.com/89329137/153695473-113287ff-2968-4100-
 ![battle](https://user-images.githubusercontent.com/89329137/153695515-68da12ad-18da-4207-820c-3d3f4afeeed8.png)
 
 
-
-### Link do Surge:
-Ainda Não Tem.
 
 ### 🔁 Contribuir ou testar código pela sua máquina
 ```bash
