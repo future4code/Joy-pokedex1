@@ -33,7 +33,7 @@ Na **Pagina de batalhas**, Dentre os pokemons que estão na sua pokedex, escolha
 o que tiver melhores pontos de ataques e defesa sobreviverá, então, que vença o melhor! 
 
 ### Link do Surge:
-[SurgeLabédex](https://jittery-horse.surge.sh/)
+[SurgeLabédex](https://labex-x.surge.sh/)
 
 
 ### 🎥 Video Demonstrativo
