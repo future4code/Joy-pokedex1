@@ -1,4 +1,4 @@
-import { Box, Button, Center, Flex, Image, Text } from "@chakra-ui/react"
+import { Box, Button, Center, Flex, Image, Spinner, Text } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { httpClient } from "../../constants"
@@ -6,10 +6,11 @@ import "../../index.css"
 import { goToPokemonDetailsPage } from "../../routes/coordinator"
 const PokemonCard = ({ pokemons, handleClick, textButton }) => {
   const [pokemon, setPokemon] = useState({})
-
+  const [isLoading,setIsLoading]=useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
+    setIsLoading(true)
     httpClient.get(`${pokemons.name}`).then((res) => {
       const { id, types, sprites } = res.data
       
@@ -22,6 +23,7 @@ const PokemonCard = ({ pokemons, handleClick, textButton }) => {
           }
         }),
       })
+      setIsLoading(false)
     })
   }, [pokemons.name])
 
@@ -43,7 +45,8 @@ const PokemonCard = ({ pokemons, handleClick, textButton }) => {
       <Text color={"text.gray"}>Nº{pokemon.id}</Text>
       <Text fontSize="2xl" textTransform={"capitalize"}>{pokemons.name}</Text>
       <Flex>
-        {pokemon.type?.length >= 2 ? (
+        {isLoading && <Spinner color="blue.500" size='xl'/>}
+        {!isLoading && pokemon.type?.length >= 2 ? (
           pokemon.type.map((type) => {
             return (
               <Box

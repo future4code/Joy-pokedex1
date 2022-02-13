@@ -1,82 +1,73 @@
-import { Box, Button, Flex, Select, Text, Image } from "@chakra-ui/react"
-import React, { useContext, useState } from "react"
-import PokemonCardBattle from "../../components/PokemonCardBattle"
-import Stats from "../../components/Stats"
-import { httpClient } from "../../constants"
-import { GlobalContext } from "../../GlobalContext/GlobalContext"
-import vsimage from "../../assets/vsimage.png"
+import { Box, Button, Flex, Select, Image } from "@chakra-ui/react";
+import React, { useContext, useState } from "react";
+import PokemonCardBattle from "../../components/PokemonCardBattle";
+import Stats from "../../components/Stats";
+import { httpClient } from "../../constants";
+import { GlobalContext } from "../../GlobalContext/GlobalContext";
+import vsimage from "../../assets/vsimage.png";
+import Arena from "../../assets/arena1.jfif";
+import BattleLoader from "../../components/BattleLoader";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 const BattlePage = () => {
-  const { pokedex } = useContext(GlobalContext)
-  const [selectPokemon1, setSelectPokemon1] = useState({})
-  const [selectPokemon2, setSelectPokemon2] = useState({})
-  const [battle1, setBattle1] = useState({})
-  const [battle2, setBattle2] = useState({})
-  const [winner, setWinner] = useState(null)
+  const { pokedex } = useContext(GlobalContext);
+  const [selectedPokemon1, setSelectedPokemon1] = useLocalStorage("selectedPokemon1",null);
+  const [selectedPokemon2, setSelectedPokemon2] = useLocalStorage("selectedPokemon2",null);
+  const [battle1, setBattle1] =useLocalStorage("pokemon1",null);
+  const [battle2, setBattle2] = useLocalStorage("pokemon2",null);
+  const [battleModal, setBattleModal] = useState(false);
+  const handlePokemon = (onSelect, onTotal) => {
+    return async ({ target }) => {
+      onSelect(target.value);
+      const { data } = await httpClient.get(`/${target.value}`);
+      const totalStats = data.stats
+        .map(({ base_stat }) => base_stat)
+        .reduce((x, y) => x + y);
+        const image= data.sprites.other["official-artwork"].front_default;
+      onTotal({ ...data, totalStats, image });
+    };
+  };
 
-  const handlePokemon1 = ({ target }) => {
-    setSelectPokemon1(target.value)
-    httpClient.get(`/${target.value}/`).then(({ data }) => {
-      const status = data.stats.map((date) => {
-        return date.base_stat
-      })
-      const totalStatus1 = status.reduce((a, b) => {
-        return a + b
-      })
-      setBattle1(totalStatus1)
-    })
-    setWinner(null)
-  }
-  const handlePokemon2 = ({ target }) => {
-    setSelectPokemon2(target.value)
-    httpClient.get(`/${target.value}/`).then(({ data }) => {
-      const status = data.stats.map((date) => {
-        return date.base_stat
-      })
-      const totalStatus2 = status.reduce((a, b) => {
-        return a + b
-      })
-      setBattle2(totalStatus2)
-    })
-    setWinner(null)
-  }
-
-  const handleBattle = () => {
-    if (battle1 > battle2) {
-      setWinner(selectPokemon1 + " VENCEU!")
-    } else if (battle1 < battle2) {
-      setWinner(selectPokemon2 + " VENCEU!")
-    } else {
-      setWinner("EMPATE!")
-    }
-  }
+  const handlePokemon1 = handlePokemon(setSelectedPokemon1, setBattle1);
+  const handlePokemon2 = handlePokemon(setSelectedPokemon2, setBattle2);
 
   return (
     <Box p="1em 0">
       <Flex justify={"space-around"}>
-        <Select w={"auto"} onChange={handlePokemon1} defaultValue={{}}>
+        <Select
+          w={"auto"}
+          onChange={handlePokemon1}
+          defaultValue={{}}
+          fontFamily={"Flexo-Demi"}
+        >
           <option value={{}} disabled>
             Selecione um Pokémon
           </option>
           {pokedex.map((pokemon1) => {
             return (
               <option key={pokemon1.name} value={pokemon1.name}>
-                {pokemon1.name}
+                {pokemon1.name.toUpperCase()}
               </option>
-            )
+            );
           })}
         </Select>
 
-        <Select w={"auto"} onChange={handlePokemon2} defaultValue={{}}>
+        <Select
+          w={"auto"}
+          onChange={handlePokemon2}
+          defaultValue={{}}
+          fontFamily={"Flexo-Demi"}
+          mb={'1em'}
+        >
           <option value={{}} disabled>
             Selecione um Pokémon
           </option>
           {pokedex.map((pokemon2) => {
             return (
               <option key={pokemon2.name} value={pokemon2.name}>
-                {pokemon2.name}
+                {pokemon2.name.toUpperCase()}
               </option>
-            )
+            );
           })}
         </Select>
       </Flex>
@@ -84,10 +75,15 @@ const BattlePage = () => {
         p={["2", "2", "2", "2"]}
         justifyContent={["space-between", "space-around"]}
         alignItems={"center"}
+        backgroundImage={Arena}
+        minH="100vh"
+        backgroundPosition={"center"}
+        backgroundSize="cover"
+        h="100%"
       >
         {pokedex
           .filter((pokemon1) => {
-            return pokemon1.name.includes(selectPokemon1)
+            return pokemon1.name === selectedPokemon1;
           })
           .map((pokemon1, index) => {
             return (
@@ -95,7 +91,7 @@ const BattlePage = () => {
                 <Stats pokemonName={pokemon1.name} />,
                 <PokemonCardBattle pokemons={pokemon1} />
               </Flex>
-            )
+            );
           })}
 
         <Flex
@@ -103,8 +99,8 @@ const BattlePage = () => {
           alignItems={"center"}
           justifyContent={"space-around"}
         >
-          {battle2 > 0 && (
-            <Flex direction={"column"} gap={8}>
+          {battle1  && battle2 && (
+            <Flex direction={"column"} gap={8} zIndex="1">
               <Image
                 alt="versus image"
                 src={vsimage}
@@ -112,25 +108,25 @@ const BattlePage = () => {
                 m={"0 auto"}
               />
               <Button
-                onClick={handleBattle}
+                onClick={()=>setBattleModal(true)}
                 m={"1em 0.1em"}
                 fontSize={["smaller", "initial"]}
-                p={"0"}
+               
+                bg={"#f36609"}
+                color={"white"}
+                _hover={{ bg: "#d1651d" }}
+                fontFamily={"Flexo-Demi"}
               >
                 Batalhar
               </Button>
             </Flex>
           )}
-          {winner && (
-            <Text textTransform={"uppercase"} textAlign={"center"}>
-              {winner}
-            </Text>
-          )}
+         
         </Flex>
 
         {pokedex
           .filter((pokemon2) => {
-            return pokemon2.name.includes(selectPokemon2)
+            return pokemon2.name === selectedPokemon2;
           })
           .map((pokemon2, index) => {
             return (
@@ -138,10 +134,12 @@ const BattlePage = () => {
                 <PokemonCardBattle pokemons={pokemon2} />,
                 <Stats pokemonName={pokemon2.name} />
               </Flex>
-            )
+            );
           })}
+
+        <BattleLoader open={battleModal} pokemon1={battle1} pokemon2={battle2} onClose={()=>setBattleModal(false)} />
       </Flex>
     </Box>
-  )
-}
-export default BattlePage
+  );
+};
+export default BattlePage;

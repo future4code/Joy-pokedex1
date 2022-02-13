@@ -1,50 +1,57 @@
-import { Box, Center, Flex, Image, Text } from "@chakra-ui/react"
-import React, { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import { httpClient } from "../../constants"
-import whosthatpok from "../../assets/whosthat.png"
-import { DetailImgContainer } from "./styled"
+import { Box, Center, Flex, Image, Text } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { httpClient } from "../../constants";
+import whosthatpok from "../../assets/whosthat.png";
+import { DetailImgContainer } from "./styled";
 
 function PokemonDetailsPage() {
-  const [pokemonDetails, setPokemonDetails] = useState({})
-  const params = useParams()
-  const icons = ["❤️", "⚔️", "🛡️", "💥", "🧬", "⚡️"]
+  const [pokemonDetails, setPokemonDetails] = useState({});
+  const params = useParams();
+  const icons = {
+    hp: "❤️",
+    attack: "⚔️",
+    defense: "🛡️",
+    "special-attack": "💥",
+    "special-defense": "🧬",
+    speed: "⚡️"
+  };
 
   useEffect(() => {
     httpClient
       .get(`/${params.id}/`)
       .then(({ data }) => {
-        const { stats, types, sprites, moves, forms } = data
+        const { stats, types, sprites, moves, forms } = data;
         setPokemonDetails({
           stats: stats.map((date) => {
             return {
               name: date.stat.name,
               number: date.base_stat,
-            }
+            };
           }),
           type: types.map((type) => {
             return {
               nameType: type["type"].name,
-            }
+            };
           }),
           moves: moves.map((move) => {
             return {
               moveName: move.move.name,
-            }
+            };
           }),
           forms: forms.map((pokemon) => {
             return {
               pokemonName: pokemon.name,
-            }
+            };
           }),
           image: sprites.front_default,
           image2: sprites.back_default,
-        })
+        });
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }, [params.id])
+        console.log(err);
+      });
+  }, [params.id]);
 
   return (
     <Box>
@@ -72,7 +79,7 @@ function PokemonDetailsPage() {
                 <Text key={index} fontSize={"4xl"} margin={"0 auto"}>
                   {data.pokemonName.toUpperCase()}
                 </Text>
-              )
+              );
             })}
             <Flex direction="column" margin={"0 auto"}>
               <Image w={["12em"]} h={"11em"} src={pokemonDetails.image} />
@@ -94,7 +101,7 @@ function PokemonDetailsPage() {
                   >
                     <Text fontSize="1xl">{type.nameType}</Text>
                   </Center>
-                )
+                );
               })}
             </Flex>
           </Box>
@@ -117,21 +124,12 @@ function PokemonDetailsPage() {
               return (
                 <Box key={index} p={".5em 0"}>
                   <Text color={"#e8e8e8"} fontSize="1xl">
-                    {stat.name === "hp"
-                      ? stat.name.toUpperCase() + " " + icons[0]
-                      : stat.name === "attack"
-                      ? stat.name.toUpperCase() + " " + icons[1]
-                      : stat.name === "defense"
-                      ? stat.name.toUpperCase() + " " + icons[2]
-                      : stat.name === "special-attack"
-                      ? stat.name.toUpperCase() + " " + icons[3]
-                      : stat.name === "special-defense"
-                      ? stat.name.toUpperCase() + " " + icons[4]
-                      : stat.name.toUpperCase() + " " + icons[5]}
+                    {stat.name.toUpperCase()} {"  "}
+                    {icons[stat.name]}
                   </Text>
                   <Text fontSize="1xl">{stat.number}</Text>
                 </Box>
-              )
+              );
             })}
           </Flex>
         </Box>
@@ -154,12 +152,12 @@ function PokemonDetailsPage() {
               <Box key={index} p={".5em 0"}>
                 <Text fontSize="1xl">{move.moveName.toUpperCase()}</Text>
               </Box>
-            )
+            );
           })}
         </Box>
       </Flex>
     </Box>
-  )
+  );
 }
 
-export default PokemonDetailsPage
+export default PokemonDetailsPage;
