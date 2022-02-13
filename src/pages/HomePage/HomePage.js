@@ -1,12 +1,13 @@
-import { Box, Button, Grid, Select } from "@chakra-ui/react"
-import axios from "axios"
-import React, { useContext, useState } from "react"
-import PokemonCard from "../../components/PokemonCard"
-import { GlobalContext } from "../../GlobalContext/GlobalContext"
-import { SelectContainer } from "./styled"
+import { Box, Button, Grid, Select, Spinner, Text } from "@chakra-ui/react";
+import React, { useContext, useState } from "react";
+import PokemonCard from "../../components/PokemonCard";
+import { httpClient } from "../../constants";
+import { GlobalContext } from "../../GlobalContext/GlobalContext";
+import { SelectContainer } from "./styled";
 
 function HomePage() {
-  const [sortParameter, setSortParameter] = useState("default")
+  const [sortParameter, setSortParameter] = useState("default");
+
   const {
     pokemons,
     setPokemons,
@@ -15,40 +16,53 @@ function HomePage() {
     setPokedex,
     setLoadMore,
     loadMore,
-  } = useContext(GlobalContext)
+    isLoading,
+  } = useContext(GlobalContext);
 
   const addToPokedex = (pokemon) => {
-    setPokedex([...pokedex, pokemon])
-  }
+    setPokedex([...pokedex, pokemon]);
+  };
 
   const handleSortParameter = ({ target }) => {
-    setSortParameter(target.value)
-  }
+    setSortParameter(target.value);
+  };
 
   const LoadMorePokemons = (loadMore) => {
-    axios
+    httpClient
       .get(`${loadMore}`)
       .then((res) => {
-        setPokemons([...pokemons, ...res.data.results])
-        setLoadMore(res.data.next)
-        console.log(loadMore)
-        console.log(pokemons)
+        setPokemons([...pokemons, ...res.data.results]);
+        setLoadMore(res.data.next);
       })
       .catch((err) => {
-        alert(err.message)
-      })
-  }
+        alert(err.message);
+      });
+  };
 
   const notInPokedex = pokemons?.filter((pokemon) => {
     const inPokedex = pokedex.find((pokedex) => {
-      return pokemon.name === pokedex.name
-    })
+      return pokemon.name === pokedex.name;
+    });
     if (inPokedex) {
-      return false
+      return false;
     } else {
-      return true
+      return true;
     }
-  })
+  });
+
+  const filteredPokemons = notInPokedex
+
+    ?.filter((pokemon) => {
+      return pokemon.name.toLowerCase().includes(searchPokemon.toLowerCase());
+    })
+    .sort((currentPokemon, nextPokemon) => {
+      if (sortParameter === "a-z") {
+        return currentPokemon.name.localeCompare(nextPokemon.name);
+      }
+      if (sortParameter === "z-a") {
+        return nextPokemon.name.localeCompare(currentPokemon.name);
+      }
+    });
 
   return (
     <Box
@@ -69,6 +83,7 @@ function HomePage() {
             Ordenar por
           </option>
           <option value={"a-z"}>A-Z</option>
+          <option value={"z-a"}>Z-A</option>
         </Select>
       </SelectContainer>
       <Grid
@@ -82,22 +97,22 @@ function HomePage() {
         ]}
         gap={[10]}
       >
-        
-        {notInPokedex
-          ?.filter((pokemon) => {
-            return pokemon.name
-              .toLowerCase()
-              .includes(searchPokemon.toLowerCase())
-          })
-          .filter((pokemon) => {
-            return pokemon.name.includes(searchPokemon)
-          })
-          .sort((currentPokemon, nextPokemon) => {
-            if (sortParameter === "a-z") {
-              return currentPokemon.name.localeCompare(nextPokemon.name)
-            }
-          })
-          .map((pokemon) => {
+        {!filteredPokemons.length && (
+          <>
+            <Text
+              align={"center"}
+              gridArea="1/1/3/5"
+              fontSize="4xl"
+              fontFamily={"Flexo-Demi"}
+            >
+              Pokémon não encontrado!
+            </Text>
+          </>
+        )}
+        {isLoading ? (
+          <Spinner color="blue.500" size="xl" />
+        ) : (
+          filteredPokemons.map((pokemon) => {
             return (
               <PokemonCard
                 key={pokemon.name}
@@ -105,16 +120,24 @@ function HomePage() {
                 handleClick={() => addToPokedex(pokemon)}
                 textButton={"Adicionar à Pokédex"}
               />
-            ) 
-          })}
+            );
+          })
+        )}
       </Grid>
       <Box>
-        <Button onClick={() => LoadMorePokemons(loadMore)}>
+        <Button
+          bg={"background.blue"}
+          color={"white"}
+          p={2}
+          mt={2}
+          _hover={{ bg: "blue.500" }}
+          onClick={() => LoadMorePokemons(loadMore)}
+        >
           Carregar Mais
         </Button>
       </Box>
     </Box>
-  )
+  );
 }
 
-export default HomePage
+export default HomePage;

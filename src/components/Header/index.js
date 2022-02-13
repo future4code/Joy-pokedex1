@@ -62,7 +62,7 @@ const Header = () => {
         <Input
           value={searchPokemon}
           onChange={handlePokemon}
-          type={"text"}
+          type={"search"}
           variant="flushed"
           placeholder="Procure um Pokémon..."
           _placeholder={{ color: "white" }}
@@ -80,7 +80,7 @@ const Header = () => {
                 p={[".5em", "2em"]}
                 cursor={"pointer"}
                 onClick={() => goToPokedexPage(navigate)}
-                borderBottom={'5px solid #E3350D'}
+                borderBottom={'5px solid #ca3614'}
                 display={"flex"}
                 alignItems={"center"}
                 flexFlow={"column"}
@@ -105,7 +105,7 @@ const Header = () => {
                 onClick={() => {
                   goToHomePage(navigate)
                 }}
-                borderBottom={'5px solid #DAA520'}
+                borderBottom={'5px solid #cf9e22'}
               >
                 <Image src={Pokemon} w={["1em", "2em"]} h={["1em", "2em"]} />
                 <Text> Pokémons</Text>
@@ -124,7 +124,7 @@ const Header = () => {
                 }}
                 borderBottom={'5px solid #ff6702'}
               >
-                <Image src={Batalha} w={["2em", "2em"]} h={["1em", "2em"]} />
+                <Image src={Batalha} w={["2em", "2em"]} h={["2em", "2em"]} />
                 <Text> Batalha</Text>
               </ListItem>
             </Flex>
