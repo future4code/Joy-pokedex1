@@ -21,19 +21,19 @@ Nele você pode criar sua própria pokédex com os seus pokémons preferidos.**
 Este projeto tem três paginas principais de navegação, que são elas: 
 Pagina Inicial, Pagina da Pokedex, e Pagina de Batalhas.
 
-Na **página inicial**, você pode escolher pokemons pesquisando por nome na area superior do site ou partindo das opções 
+Na **Página inicial**, você pode escolher pokémons pesquisando por nome na área superior do site ou partindo das opções 
 que são apresentadas na tela...  na parte inferior, clicando em "carregar mais" são adicionados mais pokémons para que você possa escolher.
 E ainda nos cards que são exibidos, dando um clique na imagem do pokemon você consegue ver o perfil completo 
 e todas as caracteristicas físicas e de skills de batalha do pokémon selecionado.
 
-Na **página da Pokédex** são exibidos os pokémons escolhidos previamente por você, 
-nessa página também há a possibilidade remover o pokemon da pokedex e clicar no card e acessar os detalhes físicos e características de batalha do pokémon selecionado
+Na **Página da Pokédex** são exibidos os pokémons escolhidos previamente por você. 
+Nessa página também há a possibilidade remover o pokémon da pokédex e clicar no card e acessar os detalhes físicos e características de batalha do pokémon selecionado
 
-Na **Pagina de batalhas**, Dentre os pokemons que estão na sua pokedex, escolha dois deles e inicie uma batalha. 
+Na **Página de batalhas**, dentre os pokémons que estão na sua pokédex, escolha dois deles e inicie uma batalha. 
 o que tiver melhores pontos de ataques e defesa sobreviverá, então, que vença o melhor! 
 
 ### Link do Surge:
-[SurgeLabédex](https://labex-x.surge.sh/)
+[Labédex](https://labex-x.surge.sh/)
 
 
 ### 🎥 Video Demonstrativo
