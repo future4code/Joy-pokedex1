@@ -11,7 +11,7 @@ const BattleLoader = ({ open, pokemon1, pokemon2, onClose }) => {
       setBattling(true);
       const timeOutId = setTimeout(() => {
         setBattling(false);
-      }, 1000);
+      }, 2000);
       return () => clearTimeout(timeOutId);
     }
   }, [open]);
