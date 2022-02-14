@@ -5,9 +5,9 @@
 Nele você pode criar sua própria pokédex com os seus pokémons preferidos.**
 
 ### 🤓📚 Desenvolvido por: 
-- Guilherme de Oliveira Barros
-- Matheus Lima Ribeiro
-- Junio Batista Silva
+- [Guilherme de Oliveira Barros](https://github.com/FIXER3600)
+- [Matheus Lima Ribeiro](https://github.com/mdmath15)
+- [Junio Batista Silva](https://github.com/JunioBatista)
 
 ### ⚙️ Projeto React, usando as seguintes tecnologias:
 - HTML
@@ -37,14 +37,18 @@ o que tiver melhores pontos de ataques e defesa sobreviverá, então, que vença
 
 
 ### 🎥 Video Demonstrativo
-https://user-images.githubusercontent.com/89329137/153695473-113287ff-2968-4100-b169-f643fa443f80.mp4
+https://user-images.githubusercontent.com/89329137/153782707-ac20496b-4290-4b97-87bf-0132b671401d.mp4
+
+
 
 
 ### 📷 Imagens Demonstrativas:
 ![pokemons](https://user-images.githubusercontent.com/89329137/153695519-2d859c57-1428-486f-b3f3-5ff30c0eea02.png)
 ![imagem](https://user-images.githubusercontent.com/89329137/153695516-2958db8e-4b31-4ce7-bcdd-bddc843065ef.png)
 ![pokedex vazia](https://user-images.githubusercontent.com/89329137/153695517-06d832ab-31aa-42d7-b03b-e0892f40de2a.png)
-![battle](https://user-images.githubusercontent.com/89329137/153695515-68da12ad-18da-4207-820c-3d3f4afeeed8.png)
+![Sem título](https://user-images.githubusercontent.com/89329137/153782699-9415374b-c8c7-4ef6-9e91-327586e19afb.png)
+![Sem título1](https://user-images.githubusercontent.com/89329137/153782702-060619da-afbb-468b-97cc-99989481ebd1.png)
+
 
 
 
